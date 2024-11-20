@@ -1,0 +1,220 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-size: 100%;
+    font-family: 'Cambria', serif;
+    font-weight: 300;
+
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button, input, textarea {
+    font-family: inherit;
+}
+
+@font-face {
+    font-family: 'Ryman Eco';
+    src: url('/font/Ryman-Regular.woff2') format('woff2'),
+        url('/font/Ryman-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+h1 {
+    font-family: 'Ryman Eco', sans-serif;
+    font-weight: lighter;
+
+}
+/** MENU **/
+
+
+nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #036759;
+}
+
+.logo{
+    height: 200px;
+    width: 200px;
+    margin-right: 50px;
+}
+
+nav ul {
+    display: flex;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #fff;
+}
+
+nav ul li {
+    margin-left: 50px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 19px;
+    padding: 50px;
+}
+
+.btn-menu {
+    margin-left: auto; /* Pousse le bouton à l'extrême droite */
+    padding: 10px 20px;
+    margin-right: 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #FFFFF0;
+    color: #333;
+    font-size: 19px;
+}
+
+@media (max-width : 1000px) {
+
+
+    nav {
+        padding-top: 25px;
+        padding-bottom: 25px;        
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    nav .menu {
+        display: none;
+    }  
+
+    nav .menu-burger {
+        order: 1;
+        margin-left: 10px;
+        height: 30px;
+        width: 30px;
+    }
+    nav .logo {
+        order: 2;
+        position: absolute; /* Permet de le placer indépendamment des autres éléments */
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100px;
+        width: 100px;
+}
+    nav .btn-menu {
+        order: 3;
+        margin: 0;
+        padding: 8px 15px;
+        margin-right: 10px;
+        font-size: 13;
+    }  
+
+}
+
+/**SECTION 1**/
+.sec1 .container {
+    position: relative;
+    width: 100%;
+    height: 750px;
+}
+
+.background-vertical {
+    display: flex; /* Utilisation de Flexbox pour disposer les images horizontalement */
+    width: 100%;
+    height: 750px; /* Hauteur du conteneur */
+}
+
+.image {
+    flex: 1; /* Chaque image prend une part égale de l'espace disponible */
+    background-size: cover; /* Chaque image couvre tout le conteneur de l'élément */
+    background-position: center; /* Centrer les images */
+}
+
+.image:nth-child(1) {
+    background-image: url(/média/Savane.jpg);
+    filter: blur(3px); /* Deuxième image */
+}
+
+.image:nth-child(2) {
+    background-image: url(/média/jungle.jpg);
+    filter: blur(3px); /* Première image */
+}
+
+.image:nth-child(3) {
+    background-image: url(/média/marais.jpg);
+    filter: blur(3px); /* Troisième image */
+}
+
+.background-vertical::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(102, 205, 170, 0.3); /* Couleur verte transparente */
+    z-index: 2; /* Place la superposition de couleur au-dessus de l'image floue */
+}
+.sec1 h1 {
+    font-size: 150px;
+    position: absolute;
+    color: #FFFFF0;
+    text-align: center;
+    padding-bottom: 50px;
+    z-index: 3;
+}
+
+.sec1 p {
+    font-size: 26px;
+    position: absolute;
+    color: #FFFFF0;
+    text-align: center;
+    font-weight: 100;
+    z-index: 3;
+}
+
+.blop_page-aniamaux {
+    position: absolute;
+    text-align: center;
+    padding-bottom: 50px;
+    z-index: 3;
+}
+@media (max-width : 900px) {
+    .sec1 h1 { 
+        font-size: 64px ;
+        padding-bottom: 50px;
+    }
+    .sec1 h2 {
+        font-size: 40px;
+    }
+}
+.photo-background .shap-divider img {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    z-index: 2;
+}
+
+
+                 

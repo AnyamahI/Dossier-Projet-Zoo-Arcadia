@@ -1,0 +1,875 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-size: 100%;
+    font-family: 'Cambria', serif;
+    font-weight: 300;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button, input, textarea {
+    font-family: inherit;
+}
+
+@font-face {
+    font-family: 'Ryman Eco';
+    src: url('/font/Ryman-Regular.woff2') format('woff2'),
+        url('/font/Ryman-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+h1 {
+    font-family: 'Ryman Eco', sans-serif;
+    font-weight: lighter;
+
+}
+/** MENU **/
+
+
+nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #036759;
+}
+
+.logo{
+    height: 200px;
+    width: 200px;
+    margin-right: 50px;
+}
+
+nav ul {
+    display: flex;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #FFFFF0;
+    
+}
+
+nav ul li {
+    margin-left: 50px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 19px;
+    padding: 50px;
+}
+
+.btn-menu {
+    margin-left: auto; /* Pousse le bouton à l'extrême droite */
+    padding: 10px 20px;
+    margin-right: 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #FFFFF0;
+    color: #333;
+    font-size: 19px;
+}
+
+@media (max-width : 1000px) {
+
+
+    nav {
+        padding-top: 25px;
+        padding-bottom: 25px;        
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    nav .menu {
+        display: none;
+    }  
+
+    nav .menu-burger {
+        order: 1;
+        margin-left: 10px;
+        height: 30px;
+        width: 30px;
+    }
+    nav .logo {
+        order: 2;
+        position: absolute; /* Permet de le placer indépendamment des autres éléments */
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100px;
+        width: 100px;
+}
+    nav .btn-menu {
+        order: 3;
+        margin: 0;
+        padding: 8px 15px;
+        margin-right: 10px;
+        font-size: 13;
+    }  
+
+}
+
+/**SECTION 1**/
+.sec1 .container {
+    position: relative;
+    width: 100%;
+    height: 750px;
+}
+.sec1 .photo-background {
+    background-image: url(/média/flamant\ rose.jpg);
+    background-size: cover; /* Ajuste l'image pour couvrir tout l'élément */
+    background-position: center; /* Centre l'image dans l'élément */
+    background-repeat: no-repeat; /* Évite que l'image se répète */
+    width: 100%;
+    height: 750px;
+}
+
+.sec1 h1 {
+    font-size: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -90%);
+    color: #fff;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.sec1 h2 {
+    font-size: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    color: #fff;
+    text-align: center;
+    font-family: 'Ryman Eco', sans-serif;
+    font-weight: 100;
+}
+
+@media (max-width : 900px) {
+    .sec1 h1 { 
+        font-size: 64px ;
+        padding-bottom: 50px;
+}
+    .sec1 h2 {
+        font-size: 40px;
+    }
+}
+.photo-background .shap-divider img {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+}
+
+/** SECTION 2**/
+
+.sec2 {
+    position: relative;
+    font-size: 19px;
+    color: #232323;
+}
+
+.sec2 .container .shap-divider img {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+}
+
+.sec2 .container-info {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    padding-top: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #FFFFF0;
+}
+
+.container-info {
+display: flex;
+justify-content: space-between;
+}
+
+.fa-solid {
+ margin-block: 20px;
+}
+
+.horaires, .guide, .petit-train, .restauration, .adresse {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items:center;
+    text-align: center;
+    padding: 10px
+
+}
+
+.container-intro {
+    display: flex;
+    background-color: #FFFFF0;
+}
+
+.container-intro .intro-zoo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+}
+
+@media (max-width : 900px) {
+
+    .container-info {
+        flex-wrap: wrap;
+        font-size: 16px;
+    }
+
+    .container-intro {
+        flex-direction: column;
+        padding-top: 20px;
+    }
+
+    .intro-zoo {
+        padding-left: 10px;
+        font-size: 16px;
+        text-align: center;
+
+    }
+    .container-intro img{
+        order: 2;
+        width: 270px;
+        height: 178px;
+    }
+}
+
+/** SECTION 3**/
+
+.sec3 {
+    font-size: 19px;
+    color: #FFFFF0;
+    background-color: #036759;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.sec3 h1 {
+    font-size: 96px;
+    text-align: center;
+    padding: 50px;
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.sec3 h2 {
+    font-family: 'Ryman Eco', sans-serif;
+    font-weight: 100;
+    font-size: 70px;
+}
+
+.sec3 p {
+    font-size: 25px;
+    transform: translateY(50);
+}
+
+@media (max-width : 1200px) {
+    .sec3 {
+        font-size: 16px;
+    }
+
+    .sec3 h1 {
+        margin-top: 0;
+        padding-bottom: 80px;
+        font-size: 44px;
+    }
+
+}
+
+
+/**SAVANE**/
+.container-savane {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    overflow: visible;
+    width: 80%;
+    background-color: #87CEEB;
+    flex-direction: row;
+    margin-bottom: 150px;
+}
+
+.savane-blop img {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: -100px;
+    left: -100px;
+}
+.savane-text {
+    margin: 30px 30px 30px 35% ;
+
+}
+
+/**responsive savane PC**/
+
+@media (max-width: 1420px) {
+    .savane-blop img {
+        left: -110px;
+
+    }
+    .container-savane {
+        margin-right: -10%;
+    }
+}
+
+@media (max-width: 1390px) {
+    .savane-blop img {
+        left: -180px;
+    }
+}
+
+/**RESPONSIVE MOBIL SAVANE**/
+
+@media (max-width: 1200px) {
+    .container-savane {
+        flex-direction: column;
+        margin-left: 15%;
+        margin-right: 15%;
+        margin-bottom: 180px;
+    }
+
+    .savane-blop img {
+        width: 250px;
+        height: 250px;
+        top: -150px;
+        left: 30%;
+    }
+
+    .savane-text {
+        margin: 20px;
+        text-align: center;
+    }
+
+    .container-savane h2 {
+        font-size: 20px;
+        margin-top: 85px;
+    }
+
+    .container-savane p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .savane-blop img {
+        left: 10%;
+
+    }
+}
+/** JUNGLE **/
+
+.container-jungle {
+    display: flex;
+    position: relative;
+    overflow: visible;
+    width: 80%;
+    background-color: #3C6140;
+    flex-direction: row;
+    margin-bottom: 150px;
+
+}
+
+.jungle-blop img {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: -100px;
+    left: 1000px;
+}
+
+.jungle-text {
+    margin: 30px 30% 30px 35px ;
+
+}
+
+/**responsive jungle PC**/
+
+@media (min-width : 1820px) {
+    .jungle-blop img {
+        left: 1100px;
+
+    }
+}
+
+@media (max-width: 1670px) {
+    .jungle-blop img {
+        left: 900px;
+
+    }
+}
+
+@media (max-width: 1550px) {
+    .jungle-blop img {
+        left: 850px;
+
+    }
+}
+
+@media (max-width: 1500px) {
+    .jungle-blop img {
+        left: 800px;
+
+    }
+    .container-jungle {
+        margin-left: -10%;
+    }
+}
+
+@media (max-width: 1370px) {
+    .jungle-blop img {
+        left: 730px;
+
+    }
+}
+
+@media (max-width: 1300px) {
+    .jungle-blop img {
+        left: 700px;
+
+    }
+    .container-jungle {
+        margin-left: -15%;
+    }
+}
+
+@media (max-width: 1235px) {
+    .jungle-blop img {
+        left: 660px;
+
+    }
+}
+
+/**RESPONSIVE PC JUNGLE**/
+
+@media (max-width: 1200px) {
+    .container-jungle {
+        flex-direction: column;
+        margin-left: 15%;
+        margin-right: 15%;
+        left: 0;
+        margin-bottom: 180px;
+    }
+
+    .jungle-blop img {
+        width: 250px;
+        height: 250px;
+        top: -150px;
+        left: 30%;
+    }
+
+    .jungle-text {
+        margin: 20px;
+        text-align: center;
+    }
+
+    .container-jungle h2 {
+        font-size: 20px;
+        margin-top: 85px;
+    }
+
+    .container-jungle p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .jungle-blop img {
+        left: 10%;
+    }
+}
+
+
+/** MARAIS **/
+
+.container-marais {
+    display: flex;
+    position: relative;
+    overflow: visible;
+    width: 80%;
+    background-color: #9E682E;
+    flex-direction: row;
+}
+
+.marais-blop img {
+    position: absolute;
+    width: 530px;
+    height: 530px;
+    top: -100px;
+    left: -120px;
+}
+
+.marais-text {
+    margin: 30px 30px 30px 35% ;
+}
+
+/**responsive marias PC**/
+
+@media (max-width: 1540px){
+    .marais-blop img {
+        left: -180px;
+    }
+    .container-marais {
+        left: 5%;
+    }
+
+}
+
+@media (max-width: 1330px){
+    .marais-blop img {
+        left: -200px;
+    }
+    .container-marais {
+        left: 7%;
+    }
+
+}
+
+/**RESPONSIVE MOBILE MAIRAIS**/
+
+@media (max-width: 1200px) {
+    .container-marais {
+        flex-direction: column;
+        margin-left: 15%;
+        margin-right: 15%;
+        left: 0;
+    }
+
+    .marais-blop img {
+        width: 250px;
+        height: 250px;
+        top: -150px;
+        left: 30%;
+    }
+
+    .marais-text {
+        margin: 20px;
+        text-align: center;
+    }
+
+    .container-marais h2 {
+        font-size: 20px;
+        margin-top: 85px;
+    }
+
+    .container-marais p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .marais-blop img {
+        left: 10%;
+    }
+}
+/**SECTION 4**/
+
+/**NOS ANIMAUX**/
+
+.sec4 {
+    background-color: #036759;
+    place-items: center;
+    color: #FFFFF0;
+}
+
+.sec4 h1 {
+    font-size: 96px;
+    text-align: center;
+    padding: 90px;
+}
+
+.sec4 h3 {
+    font-size: 36px;
+    text-align: center;
+    padding: 20px;
+}
+.container-animaux {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    width: 60%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.container-animaux img {
+    width: 50%; 
+    height: auto; 
+    margin-bottom: 5px;
+}
+
+@media (max-width: 1200px) {
+    .sec4 h1 {
+        padding: 40px;
+        font-size: 44px;
+    }
+
+    .sec4 h3 {
+        font-size: 21px;
+    }
+}
+/**TIGRE - LOUP**/
+
+.container-tigre_loup {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+    justify-content: space-between;
+}
+
+.tigre {
+    margin-right: 5px;
+}
+/** ZEBRE - GORIL -LOUTRE **/
+
+.container-zebre_goril_loutre {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+.container-animaux .container-zebre_goril_loutre {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+
+}
+
+.container-zebre_goril_loutre img:nth-child(3) {
+    width: 100%;
+
+}
+
+.container-zebre_goril img{ 
+    display: flex;
+}
+
+.zebre {
+    padding-right: 5px;
+    width: 50%;
+}
+
+/** SECTION 5 **/
+
+.sec5 {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-color: #036759;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.sec5 .shap-divider img {
+    position: absolute;
+    bottom: -69px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    transform: rotate(180deg);
+}
+.sec5 h2 {
+    font-size: 44px ;
+    margin: 30px 0 50px 0;
+    color: #FFFFF0;
+}
+
+.avis {
+    width: 50%;
+    padding-bottom: 20px;
+}
+.avis img {
+    position: relative;
+    opacity: 80%;
+    width: 100%;
+    height: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.sec6 {
+    background-color: #FFFFF0;
+    height: 100vh;
+}
+
+.sec6 h2 {
+    display: flex;
+    font-size: 44px;
+    padding: 120px 0 50px 0;
+    align-items: center;
+    justify-content: center;
+    color: #232323;
+}
+.partenaire {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    margin-left: 180px;
+    background-color: #FFFFF0;
+}
+
+.logo_BornFree {
+    width: 300px;
+    height: 300px;
+    margin-right: 200px;
+}
+
+.logo_SPA {
+    margin-right: 100px;
+    width: 300px;
+    height: 300px;
+}
+.logo_WWF {
+    width: 400px;
+    height: 300px;
+}
+
+.logo_AFDPZ {
+    width: 500px;
+    height: 300px;
+}
+/* CONTACTE */
+
+input:not(input[type="submit"]), textarea {
+    border: none;
+    border-bottom: 2px solid #036759;
+    resize: none;
+    outline: none;
+    width: 30vw;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+label {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.form-top {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: space-between;
+}
+
+.form-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.form-left>div * {
+    display: block;
+}
+
+.form-right * {
+    display: block;
+}
+
+.form-contact input[type="submit"] {
+    background-color: #036759;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    font-weight: 500px;
+    font-size: 20px;
+    color: #FFFFF0;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.5);
+    margin-bottom: 80px;
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out;
+}
+
+.form-contact input[type="submit"] {
+    transform: translateY(-5px);
+}
+/* AVIS */
+
+.sec-avis {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.container-avis {
+    max-width: 600px;
+    margin: auto;
+}
+
+#comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#comment-form label {
+    margin-top: 10px;
+}
+
+#comment-form input, 
+#comment-form textarea {
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.liste-avis {
+    margin-top: 20px;
+}
+
+.commentaire {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.commentaire-pp  {
+    width: 45px;
+    height: 45px;
+}

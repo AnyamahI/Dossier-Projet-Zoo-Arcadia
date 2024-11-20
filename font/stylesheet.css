@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Ryman Eco';
+    src: url('/font/Ryman-Regular.woff2') format('woff2'),
+        url('/font/Ryman-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

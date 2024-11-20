@@ -1,0 +1,590 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-size: 100%;
+    font-family: 'Cambria', serif;
+    font-weight: 300;
+
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button, input, textarea {
+    font-family: inherit;
+}
+
+@font-face {
+    font-family: 'Ryman Eco';
+    src: url('/font/Ryman-Regular.woff2') format('woff2'),
+        url('/font/Ryman-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+h1 {
+    font-family: 'Ryman Eco', sans-serif;
+    font-weight: lighter;
+
+}
+/** MENU **/
+
+
+nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #036759;
+}
+
+.logo{
+    height: 200px;
+    width: 200px;
+    margin-right: 50px;
+}
+
+nav ul {
+    display: flex;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #fff;
+    
+}
+
+nav ul li {
+    margin-left: 50px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 19px;
+    padding: 50px;
+}
+
+.btn-menu {
+    margin-left: auto; /* Pousse le bouton à l'extrême droite */
+    padding: 10px 20px;
+    margin-right: 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #FFFFF0;
+    color: #333;
+    font-size: 19px;
+}
+
+@media (max-width : 1000px) {
+
+
+    nav {
+        padding-top: 25px;
+        padding-bottom: 25px;        
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    nav .menu {
+        display: none;
+    }  
+
+    nav .menu-burger {
+        order: 1;
+        margin-left: 10px;
+        height: 30px;
+        width: 30px;
+    }
+    nav .logo {
+        order: 2;
+        position: absolute; /* Permet de le placer indépendamment des autres éléments */
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100px;
+        width: 100px;
+}
+    nav .btn-menu {
+        order: 3;
+        margin: 0;
+        padding: 8px 15px;
+        margin-right: 10px;
+        font-size: 13;
+    }  
+
+}
+
+/**SECTION 1**/
+.sec1 .container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%;
+    height: 750px;
+}
+.photo-background {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* Empêche les débordements d'éléments */
+}
+
+.photo-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(/média/grizzly_bg.png);
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px); /* Applique un flou sur l'image */
+    z-index: 1;
+}
+
+.photo-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(158, 104, 46, 0.5); /* Couleur verte transparente */
+    z-index: 2; /* Place la superposition de couleur au-dessus de l'image floue */
+}
+
+.item_bg {
+    position: absolute; /* Permet à l'élément de passer au-dessus de l'image */
+    top: 50%; /* Centre verticalement */
+    left: 50%; /* Centre horizontalement */
+    width: 95%;
+    transform: translate(-50%, -50%); /* Ajuste pour le centre exact */
+    display: flex; /* Utilisation de Flexbox pour l'alignement horizontal */
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+    padding: 20px; /* Espace autour des éléments, ajustable */
+    box-sizing: border-box; /* Inclut le padding dans la taille totale de l'élément */
+    z-index: 3;
+}
+
+.blop_page_grizzly, .info_grizzly {
+    margin: 0 100px; /* Espace entre les deux éléments */
+}
+
+.blop_page_grizzly img, .info_grizzly {
+    display: block;
+    max-width: 100%; /* Assure que les images ne dépassent pas la taille du conteneur */
+}
+
+.info_grizzly {
+    display: flex; /* Utilise Flexbox pour un alignement côte à côte */
+    align-items: center;
+}
+
+.titre-blop {
+    position: relative; /* Définit un conteneur pour le positionnement absolu */
+    display: flex; /* Utilise flex pour aligner le contenu */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;
+    margin-right: 20px;
+    bottom: -70px;
+     /* Centre verticalement */
+}
+
+.titre-blop img {
+    display: block; /* Évite les espaces sous l'image */
+    max-width: 100%; /* Assure que l'image ne déborde pas */
+    width: auto; /* Laisse la largeur automatique */
+    height: auto; /* Laisse la hauteur automatique */
+    max-width: none; /* Enlève la limitation de largeur maximale */
+    max-height: none;
+}
+
+.titre-blop h2 {
+    position: absolute; /* Permet de positionner le texte par rapport à son conteneur */
+    top: 50%; /* Centre verticalement */
+    left: 50%; /* Centre horizontalement */
+    transform: translate(-50%, -50%); /* Ajuste pour un centrage exact */
+    color: white; /* Change la couleur du texte si nécessaire */
+    z-index: 1; /* Place le texte au-dessus de l'image */
+}
+
+.titre-text {
+    color: #FFFFF0;
+}
+
+.titre-text h1 {
+    font-size: 128px;
+}
+
+.titre-text p {
+    font-size: 20px;
+}
+
+.photo-background .shap-divider img {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    z-index: 4;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1240px) {
+
+    .sec1 h1 {
+        font-size: 64px;
+        
+    }
+    .item_bg {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .blop_page_grizzly {
+        order: 2;
+        text-align: center;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .blop_page_grizzly img {
+        position: relative;
+        display: inline-block;
+        width: 50%;
+    }
+
+    .titre-blop {
+        bottom: 0;
+    }
+
+    .titre-blop img {
+        width: 70%;
+    }
+}
+
+@media (max-width: 1240px) {
+    .item_bg {
+        width: 100%;
+        padding: 2px;
+    }
+    .info_grizzly {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+ /* SECTION 2*/
+
+.sec2 {
+    background-color: #FFFFF0;
+ }
+
+.sec2 .container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.container .texet_grizzly {
+    width: 50%;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #232323;
+}
+
+.container .grizzly_image {
+    width: 50%;
+    padding-left: 100px;
+}
+
+@media (max-width: 1000px) {
+    .sec2 .container {
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .container .texet_grizzly {
+        font-size: 16px;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .container .grizzly_image {
+        width: 80%;
+        padding: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .container .texet_grizzly {
+        font-size: 11px;
+        width: 100%;
+    }
+}
+
+ /*SECTION 3*/
+ .sec3 .container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 300px;
+    background-color: #9E682E;
+}
+
+.info-principale {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 100px 10px 100px;
+    color: #FFFFF0;
+}
+
+.classe, .ordre, .famille, .habita {
+    margin: 10px;
+    text-align: center;
+}
+
+.sec3 .icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 80px 50px 10px 50px;
+}
+
+.icon-taille .icon-poid .icon-famille .icon-food .icon-life .icon-population {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items:center;
+    text-align: center;
+    padding: 10px
+}
+
+.info_icon {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-between;
+    margin: 10px 50px 10px 50px;
+}
+
+.icon-taille, .icon-poid, .icon-famille, .icon-food, .icon-life, .icon-population {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 25px;
+    color: #FFFFF0;
+}
+
+@media (max-width: 700px) {
+
+    .sec3 .container .icon {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 10px 5px 10px;
+    }
+
+    .icon-taille, .icon-poid, .icon-famille, .icon-food, .icon-life, .icon-population {
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .sec3, .container, .info-principale {
+        font-size: 11px;
+    }
+    .classe, .ordre, .famille, .habitat {
+        margin: 7px;
+    }
+}
+
+ /* SECTION 4*/
+
+.sec4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fffff0;
+}
+
+.info-map {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    margin: 50px;
+    width: 100%;
+    height: auto;
+    gap: 200px;
+    color: #232323;
+}
+
+.info-map h3 {
+    font-size: x-large;
+    margin-bottom: 10px;
+}
+
+.info-map p {
+    font-size: larger;
+}
+
+.map {
+    margin-bottom: 50px;
+}
+
+@media (max-width: 1200px ) {
+    .habita {
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 700px) {
+    .habitat h3 , .repartition h3 {
+        font-size: 19px;
+    }
+
+
+    .habitat p , .repartition p {
+        font-size: 16px;
+    }
+
+}
+/* SECTION 5*/
+
+.sec5 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #FFFFF0;
+}
+
+.sec5 .container1 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 300px;
+    background-color: #9E682E;
+
+}
+.sec5 h2 {
+    font-size: 40px;
+    color: #FFFFF0;
+    position: absolute;
+    transform: translate(-50% -50%);
+    top: 50px;
+    text-align: center;
+    
+}
+
+.container1 {
+    position: relative;
+    z-index: 1;
+}
+.container1 img{
+    position: absolute;
+    transform: translate(-50% -50%);
+    top: 150px;
+}
+
+.sec5 h3 {
+    font-size: 64px;
+    font-weight: 400;
+    position: relative;
+    color:#232323;
+    position: absolute;
+    text-align: center;
+    top: 720px;
+}
+
+.container2 {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 750px;
+}
+
+.arbre-marais {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    width: 50%;
+}
+
+.herbe-marais img {
+    width: 100%;
+    height: auto;
+}
+
+.herbe-marais {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    z-index: 3;
+}
+
+
+@media (max-width: 1000px) {
+    .sec5 h2 {
+        font-size: 34px;
+    }
+    .sec5 .container1 img {
+        width: 30%;
+    }
+
+    .sec5 h3 {
+        font-size: 24px;
+        font-weight: 400;
+        top: 400px;
+    }
+
+    .sec5 .container2 {
+        height: 300px;
+    }
+    .arbre-marais  {
+        height: auto;
+    }
+}

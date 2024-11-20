@@ -1,0 +1,48 @@
+<?php
+include 'config.php'; // Inclure le fichier de configuration pour la connexion à la base de données
+
+// Récupérer la liste des animaux
+$stmt = $pdo->query("SELECT id, name FROM animals");
+$animals = $stmt->fetchAll();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tableau de bord du vétérinaire</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"> <!-- Lier le fichier CSS -->
+</head>
+<body>
+    <h1>Tableau de bord du vétérinaire</h1>
+
+    <h2>Saisie des informations vétérinaires</h2>
+    <form method="post" action="veterinary_form.php">
+        <label for="animal_id">Animal :</label>
+        <select name="animal_id" id="animal_id" required>
+            <?php foreach ($animals as $animal): ?>
+                <option value="<?= htmlspecialchars($animal['id']) ?>"><?= htmlspecialchars($animal['name']) ?></option>
+            <?php endforeach; ?>
+        </select><br>
+
+        <label for="health_status">État de l'animal :</label>
+        <input type="text" name="health_status" id="health_status" required><br>
+
+        <label for="food">Nourriture proposée :</label>
+        <input type="text" name="food" id="food"><br>
+
+        <label for="food_quantity">Grammage de la nourriture :</label>
+        <input type="number" name="food_quantity" id="food_quantity"><br>
+
+        <label for="visit_date">Date de passage :</label>
+        <input type="date" name="visit_date" id="visit_date" required><br>
+
+        <label for="health_details">Détail de l'état de l'animal :</label>
+        <textarea name="health_details" id="health_details"></textarea><br>
+
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    <h2>Observations du vétérinaire</h2>
+    <a href="veterinary_records.php">Voir les enregistrements vétérinaires</a>
+</body>
+</html>
