@@ -1,9 +1,12 @@
+<?php error_reporting(E_ALL); ini_set('display_errors', 1); // Inclure le fichier contact.php include('back/php/contact.php'); ?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/front/css/style.css">
     
     <script src="https://kit.fontawesome.com/976d125a27.js" crossorigin="anonymous"></script>
     <title>Projet ECF</title>
@@ -45,7 +48,6 @@
     </section>
     
     <section class="sec2">
-
 
         <div class="container">
 
@@ -154,8 +156,8 @@
                 <img class="goril" src="/média/goril-acceuil-unsplash.jpg" alt="">
                 <img class="loutre" src="/média/loutre-unsplash.jpg" alt="">
             </div>
-            </div>  
-        </div> 
+            </div> 
+        </div>
         <h3>Plus d'animaux...</h3>
     </section>
 
@@ -204,7 +206,7 @@
                     <input type="submit" name="envoyer" value="Envoyer">
                 </div>
             </form>
-            <?php include('./contact.php');?>
+            <?php include('back/php/contact.php');?>
 
         </div>
 

@@ -13,16 +13,13 @@
     </form>
 
     <?php
-    // Activer l'affichage des erreurs
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    // Définir le fichier log pour enregistrer les erreurs
     ini_set('log_errors', 1);
     ini_set('error_log', __DIR__ . '/error.log');
 
-    // Informations de connexion à la base de données
     $user = "root";
     $pwd = ""; // Mot de passe vide
     $db = "mysql:host=localhost;dbname=commentaire;charset=utf8;port=3307";
@@ -35,7 +32,6 @@
             $cx = new PDO($db, $user, $pwd);
             $cx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Insertion des données dans la base
             $sql = "INSERT INTO commentaires (nom, commentaire) VALUES (:nom, :commentaire)";
             $stmt = $cx->prepare($sql);
             $stmt->bindParam(':nom', $nom);

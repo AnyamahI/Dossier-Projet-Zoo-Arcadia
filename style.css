@@ -136,7 +136,7 @@ nav ul li a {
     height: 750px;
 }
 .sec1 .photo-background {
-    background-image: url(/média/flamant\ rose.jpg);
+    background-image: url(/média/média/flamant\ rose.jpg);
     background-size: cover; /* Ajuste l'image pour couvrir tout l'élément */
     background-position: center; /* Centre l'image dans l'élément */
     background-repeat: no-repeat; /* Évite que l'image se répète */

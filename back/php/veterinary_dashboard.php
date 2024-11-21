@@ -1,5 +1,5 @@
 <?php
-include 'config.php'; // Inclure le fichier de configuration pour la connexion à la base de données
+include 'config.php'; 
 
 // Récupérer la liste des animaux
 $stmt = $pdo->query("SELECT id, name FROM animals");
@@ -10,7 +10,7 @@ $animals = $stmt->fetchAll();
 <html>
 <head>
     <title>Tableau de bord du vétérinaire</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css"> <!-- Lier le fichier CSS -->
+    <link rel="stylesheet" type="text/css" href="front/css/veterinary_dashboard"> 
 </head>
 <body>
     <h1>Tableau de bord du vétérinaire</h1>

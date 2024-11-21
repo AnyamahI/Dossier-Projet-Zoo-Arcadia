@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord Administrateur</title>
-    <link rel="stylesheet" href="admin_dashboard.css">
+    <link rel="stylesheet" href="/front/css/admin_dashboard.css">
 </head>
 <body>
     <div class="container">
@@ -22,7 +22,6 @@
         
         <section id="manage-users">
             <h2>Gérer les utilisateurs</h2>
-            <!-- Formulaire pour ajouter des utilisateurs -->
             <form action="add_user.php" method="post">
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" name="username" required><br>
@@ -36,7 +35,6 @@
                 </select><br>
                 <input type="submit" value="Ajouter">
             </form>
-            <!-- Liste des utilisateurs existants -->
             <table>
                 <thead>
                     <tr>
@@ -46,28 +44,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Les utilisateurs seront affichés ici -->
                 </tbody>
             </table>
         </section>
         
         <section id="manage-comments">
             <h2>Valider les commentaires</h2>
-            <!-- Liste des commentaires à valider -->
             <div class="comment-list">
-                <!-- Les commentaires en attente de validation seront affichés ici -->
             </div>
         </section>
         
         <section id="reports">
             <h2>Rapports</h2>
-            <!-- Sections pour les rapports -->
             <p>Cette section sera utilisée pour afficher des rapports pertinents pour l'admin.</p>
         </section>
         
         <section id="settings">
             <h2>Paramètres</h2>
-            <!-- Formulaire pour modifier les paramètres -->
             <p>Cette section permet de modifier les paramètres de l'application.</p>
         </section>
     </div>
