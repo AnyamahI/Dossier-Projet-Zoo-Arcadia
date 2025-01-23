@@ -1,31 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/front/css/aniamaux.css">
-    <script src="https://kit.fontawesome.com/976d125a27.js" crossorigin="anonymous"></script>
-    <title>Animaux</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">
-            <img src="/média/Logo_Arcadia_Transparent_V2.png" alt="">
-            </div>
-            <div class="menu-burger">
-                <img src="/média/bars-solid.svg" alt="">
-            </div>
-            <ul class="menu">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="/front/html/services.html">Services</a></li>
-                <li><a href="/front/html/animaux.html">Animaux</a></li>
-                <li><a href="#Habitats">Habitats</a></li>
-            </ul>
+<?php 
 
-            <button class="btn-menu"><a href="/front/html/connexion.html">Connexion</a></button>
-        </nav> 
-    </header>
+    require_once __DIR__ . "/../templates/header.php";   
+    
+    ?>
 
     <section class="sec1">
 
