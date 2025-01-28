@@ -1,0 +1,26 @@
+.carousel-item {
+  position: relative;
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white; /* Ajoute cette ligne si tu veux que le texte soit visible */
+}
+
+.carousel-caption p {
+  font-size: 1.25rem; /* Taille du texte pour le paragraphe */
+}
+
+.sec1-habitats h1 {
+  font-size: 150px;
+}
+
+.sec1-habitats p {
+  font-family: "Cambria", serif;
+  font-weight: 300;
+  width: 100%;
+}

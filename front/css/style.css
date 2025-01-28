@@ -325,12 +325,18 @@ nav ul li a {
 }
 
 .savane-blop img {
-  position: absolute;
   width: 500px;
   height: 500px;
   top: -100px;
   left: -100px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
+.savane-blop img:hover {
+  transform: scale(1.1); /* Agrandir à 110% */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
 .savane-text {
   margin: 30px 30px 30px 35%;
 }

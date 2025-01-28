@@ -1,6 +1,17 @@
 {
-    "require": {
-      "php": "^7.4 || ^8.0"
+  "name": "isac/arcadia",
+  "description": "Gestion d'un zoo virtuel avec des fonctionnalités frontend & backend.",
+  "type": "project",
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "phpmailer/phpmailer": "^6.8"
+  },
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Isac Anyamah",
+      "email": "isac.anyamah@example.com"
     }
-  }
-  
+  ]
+}
