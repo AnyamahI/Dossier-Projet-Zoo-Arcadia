@@ -1,39 +1,59 @@
 <?php
 session_start();
-require '../../lib/session.php';
-
-if (!isVeterinaire()) {
+require_once __DIR__ . '/../../lib/session.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+// Vérifier si l'utilisateur est vétérinaire
+if (!isVeterinair()) {
     header('Location: ../login.php');
     exit;
 }
+
 ?>
+
+
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
-    <title>Dashboard Vétérinaire</title>
-    <link rel="stylesheet" href="../css/veterinaire_dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord vétérinaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <h1>Bienvenue, <?php echo htmlspecialchars($_SESSION['user']['name']); ?> !</h1>
-        <a href="../logou.php">Se déconnecter</a>
+    <header class="bg-dark text-white text-center py-3">
+        <h1>Bienvenue, <?= htmlspecialchars($_SESSION['user']['name']) ?> !</h1>
+        <a href="/logout.php" class="btn btn-danger">Se déconnecter</a>
     </header>
-    <main>
-        <section>
-            <h2>Mes Animaux</h2>
-            <a href="view_animals.php">Consulter les animaux</a>
-        </section>
-        <section>
-            <h2>Ajouter un Rapport</h2>
-            <a href="add_report.php">Créer un nouveau rapport</a>
-        </section>
-        <section>
-            <h2>Consulter les Rapports</h2>
-            <a href="view_reports.php">Voir tous les rapports</a>
-        </section>
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card p-3">
+                    <h5>Ajouter un rapport</h5>
+                    <p>Ajoutez un nouveau rapport vétérinaire pour un animal.</p>
+                    <a href="add_report.php" class="btn btn-primary">Accéder</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card p-3">
+                    <h5>Gérer les rapports</h5>
+                    <p>Consultez, modifiez ou supprimez vos rapports vétérinaires.</p>
+                    <a href="manage_reports.php" class="btn btn-primary">Accéder</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card p-3">
+                    <h5>Consulter les animaux</h5>
+                    <p>Consultez les informations des animaux.</p>
+                    <a href="/front/html/manage_animals.php" class="btn btn-primary">Accéder</a>
+                </div>
+            </div>
+        </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

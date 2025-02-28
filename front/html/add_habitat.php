@@ -3,7 +3,6 @@ session_start();
 require '../../lib/session.php';
 require '../../lib/pdo.php';
 
-// Vérifiez que seul un administrateur peut accéder à cette page
 if (!isAdmin()) {
     header('Location: ../login.php');
     exit;
@@ -13,70 +12,80 @@ $message = "";
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_habitat'])) {
-    // Récupération des données du formulaire
     $name = htmlspecialchars(trim($_POST['name']));
     $description = htmlspecialchars(trim($_POST['description']));
+    $imagePath = NULL;
 
-    // Validation des données
     if (empty($name) || empty($description)) {
         $error = "Tous les champs sont requis.";
     } else {
-        try {
-            // Préparer et exécuter la requête d'insertion
-            $query = $pdo->prepare("INSERT INTO habitats (name, description) VALUES (:name, :description)");
-            $query->bindParam(':name', $name, PDO::PARAM_STR);
-            $query->bindParam(':description', $description, PDO::PARAM_STR);
-            $query->execute();
+        // Gestion de l'upload d'image
+        if (!empty($_FILES['image']['name'])) {
+            $targetDir = "../../uploads/habitats/";
+            $fileName = basename($_FILES["image"]["name"]);
+            $targetFilePath = $targetDir . time() . "_" . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
-            $message = "Habitat ajouté avec succès !";
-            // Réinitialiser les champs après succès
-            $_POST['name'] = "";
-            $_POST['description'] = "";
-        } catch (PDOException $e) {
-            $error = "Erreur lors de l'ajout de l'habitat : " . $e->getMessage();
+            $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+            if (in_array(strtolower($fileType), $allowedTypes)) {
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
+                    $imagePath = $targetFilePath;
+                } else {
+                    $error = "Erreur lors de l'upload de l'image.";
+                }
+            } else {
+                $error = "Format d'image invalide. Formats acceptés : jpg, jpeg, png, gif.";
+            }
+        }
+
+        if (empty($error)) {
+            try {
+                $query = $pdo->prepare("INSERT INTO habitats (name, description, image) VALUES (:name, :description, :image)");
+                $query->execute([
+                    ':name' => $name,
+                    ':description' => $description,
+                    ':image' => $imagePath,
+                ]);
+                header('Location: manage_habitats.php');
+                exit;
+            } catch (PDOException $e) {
+                $error = "Erreur lors de l'ajout de l'habitat : " . $e->getMessage();
+            }
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Habitat</title>
-    <link rel="stylesheet" href="../css/styles.css"> <!-- Lien vers un fichier CSS si nécessaire -->
+    <title>Ajouter un habitat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <h1>Ajouter un Nouvel Habitat</h1>
-        <a href="manage_habitats.php">Retour à la gestion des habitats</a>
-    </header>
-    <main>
-        <?php if (!empty($message)): ?>
-            <p style="color: green;"> <?= $message ?> </p>
-        <?php endif; ?>
-
+    <div class="container mt-4">
+        <h2>Ajouter un habitat</h2>
         <?php if (!empty($error)): ?>
-            <p style="color: red;"> <?= $error ?> </p>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
-
-        <form action="" method="post">
-            <div class="form-group">
-                <label for="name">Nom de l'habitat :</label>
-                <input type="text" id="name" name="name" value="<?= htmlspecialchars($_POST['name'] ?? '') ?>" required>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="name">Nom de l'habitat</label>
+                <input type="text" name="name" id="name" class="form-control">
             </div>
-
-            <div class="form-group">
-                <label for="description">Description :</label>
-                <textarea id="description" name="description" required><?= htmlspecialchars($_POST['description'] ?? '') ?></textarea>
+            <div class="mb-3">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" class="form-control"></textarea>
             </div>
-
-            <button type="submit" name="add_habitat">Ajouter</button>
+            <div class="mb-3">
+                <label for="image">Image de l'habitat</label>
+                <input type="file" name="image" id="image" class="form-control" accept="image/*">
+            </div>
+            <button type="submit" name="add_habitat" class="btn btn-primary">Ajouter</button>
         </form>
-    </main>
+    </div>
 </body>
 
 </html>

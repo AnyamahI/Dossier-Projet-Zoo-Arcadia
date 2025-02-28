@@ -1,14 +1,37 @@
-function expandSection(habitatId) {
-  const habitat = document.getElementById(habitatId);
-  const details = habitat.querySelector(".details");
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".voir-details").forEach(button => {
+        button.addEventListener("click", function () {
+            let habitatId = this.dataset.id;
+            let detailsDiv = document.getElementById("details-" + habitatId);
+            let currentButton = this;
 
-  if (details.style.display === "none" || details.style.display === "") {
-    details.style.display = "block";
-    habitat.style.width = "600px";
-    habitat.style.height = "400px";
-  } else {
-    details.style.display = "none";
-    habitat.style.width = "300px";
-    habitat.style.height = "200px";
-  }
-}
+            if (detailsDiv.classList.contains("open")) {
+                detailsDiv.innerHTML = "";
+                detailsDiv.classList.remove("open");
+                currentButton.textContent = "Voir plus";
+            } else {
+                fetch("/back/php/get_habitat_details.php?id=" + habitatId)
+                    .then(response => response.text())
+                    .then(data => {
+                        detailsDiv.innerHTML = data;
+
+                        // Ajouter la croix de fermeture
+                        let closeBtn = document.createElement('button');
+                        closeBtn.className = "btn-close position-absolute top-0 end-0 m-2";
+                        detailsDiv.prepend(closeBtn);
+
+                        closeBtn.addEventListener('click', function () {
+                            detailsDiv.innerHTML = "";
+                            detailsDiv.classList.remove("open");
+                            currentButton.style.display = 'inline-block'; // Réafficher le bouton
+                            currentButton.textContent = "Voir plus";
+                        });
+
+                        detailsDiv.classList.add("open");
+                        currentButton.style.display = 'none'; // Masquer le bouton après ouverture
+                    })
+                    .catch(error => console.error("Erreur AJAX :", error));
+            }
+        });
+    });
+});

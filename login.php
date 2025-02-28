@@ -4,42 +4,69 @@ require_once __DIR__ . '/templates/header.html';
 require './lib/pdo.php';
 require './lib/user.php';
 
+$error = "";
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-    $user = verifyUserLoginPassword($pdo, $email, $password);
-
-    if ($user) {
-        $_SESSION['user'] = [
-            'id' => $user['id'],
-            'name' => $user['name'],
-            'email' => $user['email'],
-            'role' => $user['role']
-        ];
-
-        switch ($user['role']) {
-            case 'admin':
-                header('Location: ../front/html/admin_dashboard.php');
-                break;
-            case 'employe':
-                header('Location: ../front/html/employe_dashboard.php');
-                break;
-            case 'veterinaire':
-                header('Location: ../front/html/veterinaire_dashboard.php');
-                break;
-        }
-        exit;
+    if (empty($email) || empty($password)) {
+        $error = 'Veuillez remplir tous les champs.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'Adresse email invalide.';
     } else {
-        $error = "Identifiants incorrects.";
+        try {
+            // Préparer la requête pour éviter les injections SQL
+            $query = $pdo->prepare("SELECT id, email, password, role FROM users WHERE email = :email");
+            $query->execute([':email' => $email]);
+            $user = $query->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($password, $user['password'])) {
+                // Stocker données utilisateur dans session
+                $_SESSION['user'] = [
+                    'id' => $user['id'],
+                    'email' => $user['email'],
+                    'name' => $user['name'],
+                    'role' => $user['role']
+                ];
+
+                // Vérification rôle et redirection
+                switch ($user['role']) {
+                    case 'admin':
+                        header('Location: front/html/admin_dashboard.php');
+                        break;
+                        exit;
+                    case 'veterinaire':
+                        header('Location: front/html/veterinaire_dashboard.php');
+                        break;
+                        exit;
+                    case 'employee':
+                        header('Location: front/html/employe_dashboard.php');
+                        break;
+                        exit;
+                    default:
+                        $error = "Rôle utilisateur inconnu.";
+                        session_destroy();
+                }
+                exit;
+            } else {
+                $error = 'Email ou mot de passe incorrect.';
+            }
+        } catch (PDOException $e) {
+            $error = 'Erreur lors de la connexion : ' . $e->getMessage();
+        }
     }
 }
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -47,12 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container col-xxl-4 px-4 py-5 bg-white shadow rounded">
             <h1 class="text-center mb-4">Se connecter</h1>
 
-            <?php if (!empty($errors)) { ?>
-                <?php foreach ($errors as $error) { ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?= htmlspecialchars($error) ?>
-                    </div>
-                <?php } ?>
+            <?php if (!empty($error)) { ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= htmlspecialchars($error) ?>
+                </div>
             <?php } ?>
 
             <form action="" method="post">
@@ -71,6 +96,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -8,53 +8,66 @@ if (!isAdmin()) {
     exit;
 }
 
-$id = $_GET['id'] ?? null;
-
-if (!$id) {
-    header('Location: manage_users.php');
+// Vérifier que l'ID de l'utilisateur est bien passé en paramètre GET
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    $_SESSION['error'] = "ID utilisateur invalide.";
+    header('Location: manage_user.php');
     exit;
 }
 
-$user = null;
+$id = $_GET['id'];
 $error = "";
 $message = "";
 
+// Récupérer les informations actuelles de l'utilisateur
 try {
-    // Récupérer les informations de l'utilisateur
     $query = $pdo->prepare("SELECT id, email, role FROM users WHERE id = :id");
-    $query->bindParam(':id', $id, PDO::PARAM_INT);
-    $query->execute();
+    $query->execute([':id' => $id]);
     $user = $query->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        header('Location: manage_users.php');
+        $_SESSION['error'] = "Utilisateur introuvable.";
+        header('Location: manage_user.php');
         exit;
     }
 } catch (PDOException $e) {
     $error = "Erreur lors de la récupération de l'utilisateur : " . $e->getMessage();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
+// Vérifier si le formulaire a été soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = htmlspecialchars(trim($_POST['email']));
     $role = htmlspecialchars(trim($_POST['role']));
 
+    // Vérifier les champs
     if (empty($email) || empty($role)) {
         $error = "Tous les champs sont requis.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Adresse email invalide.";
-    } elseif (!in_array($role, ['employe', 'veterinaire'])) {
+    } elseif (!in_array($role, ['admin', 'employee', 'veterinaire'])) {
         $error = "Rôle invalide.";
     } else {
         try {
-            $query = $pdo->prepare("UPDATE users SET email = :email, role = :role WHERE id = :id");
-            $query->bindParam(':email', $email, PDO::PARAM_STR);
-            $query->bindParam(':role', $role, PDO::PARAM_STR);
-            $query->bindParam(':id', $id, PDO::PARAM_INT);
-            $query->execute();
+            // Vérifier si l'email existe déjà pour un autre utilisateur
+            $query = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = :email AND id != :id");
+            $query->execute([':email' => $email, ':id' => $id]);
+            $emailExists = $query->fetchColumn();
 
-            $message = "Utilisateur mis à jour avec succès.";
-            $user['email'] = $email;
-            $user['role'] = $role;
+            if ($emailExists) {
+                $error = "Cet email est déjà utilisé par un autre utilisateur.";
+            } else {
+                // Mise à jour de l'utilisateur
+                $query = $pdo->prepare("UPDATE users SET email = :email, role = :role WHERE id = :id");
+                $query->execute([
+                    ':email' => $email,
+                    ':role' => $role,
+                    ':id' => $id
+                ]);
+
+                $_SESSION['success'] = "Utilisateur mis à jour avec succès.";
+                header('Location: manage_user.php');
+                exit;
+            }
         } catch (PDOException $e) {
             $error = "Erreur lors de la mise à jour de l'utilisateur : " . $e->getMessage();
         }
@@ -69,32 +82,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier un utilisateur</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <h1>Modifier un utilisateur</h1>
-    <a href="manage_users.php">Retour à la gestion des utilisateurs</a><br><br>
+    <header class="bg-dark text-white text-center py-3">
+        <h1>Modifier un utilisateur</h1>
+    </header>
 
-    <?php if (!empty($message)): ?>
-        <p style="color: green;"> <?= htmlspecialchars($message) ?> </p>
-    <?php endif; ?>
+    <main class="container mt-4">
+        <div class="d-flex justify-content-between mb-3">
+            <a href="manage_user.php" class="btn btn-secondary">Retour à la gestion des utilisateurs</a>
+        </div>
 
-    <?php if (!empty($error)): ?>
-        <p style="color: red;"> <?= htmlspecialchars($error) ?> </p>
-    <?php endif; ?>
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
 
-    <form action="" method="post">
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email'] ?? '') ?>" required><br><br>
+        <?php if (!empty($message)): ?>
+            <div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
+        <?php endif; ?>
 
-        <label for="role">Rôle :</label>
-        <select id="role" name="role" required>
-            <option value="employe" <?= ($user['role'] === 'employe') ? 'selected' : '' ?>>Employé</option>
-            <option value="veterinaire" <?= ($user['role'] === 'veterinaire') ? 'selected' : '' ?>>Vétérinaire</option>
-        </select><br><br>
+        <form method="post" class="p-4 bg-light shadow-sm rounded">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email :</label>
+                <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" required>
+            </div>
 
-        <button type="submit" name="update_user">Mettre à jour</button>
-    </form>
+            <div class="mb-3">
+                <label for="role" class="form-label">Rôle :</label>
+                <select id="role" name="role" class="form-select" required>
+                    <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Administrateur</option>
+                    <option value="employee" <?= $user['role'] == 'employee' ? 'selected' : '' ?>>Employé</option>
+                    <option value="veterinaire" <?= $user['role'] == 'veterinaire' ? 'selected' : '' ?>>Vétérinaire</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Modifier</button>
+        </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

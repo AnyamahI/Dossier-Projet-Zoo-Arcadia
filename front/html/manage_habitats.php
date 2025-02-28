@@ -3,7 +3,8 @@ session_start();
 require '../../lib/session.php';
 require '../../lib/pdo.php';
 
-if (!isAdmin()) {
+// Vérifier si l'utilisateur a accès à la gestion des habitats
+if (!hasPermission($pdo, $_SESSION['user']['role'], 'habitats', 'can_read')) {
     header('Location: ../login.php');
     exit;
 }
@@ -17,60 +18,82 @@ try {
 } catch (PDOException $e) {
     $error = "Erreur lors de la récupération des habitats : " . $e->getMessage();
 }
+
+// Déterminer le bon dashboard
+$dashboardLink = "login.php";
+if (isset($_SESSION['user']['role'])) {
+    switch ($_SESSION['user']['role']) {
+        case 'admin':
+            $dashboardLink = "admin_dashboard.php";
+            break;
+        case 'veterinarian':
+            $dashboardLink = "veterinaire_dashboard.php";
+            break;
+        case 'employee':
+            $dashboardLink = "employe_dashboard.php";
+            break;
+    }
+}
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
-    <title>Gestion des habitats</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏞️ Gestion des Habitats</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/manage_habitats.css">
 </head>
 
 <body>
-    <header>
-        <h1>Gestion des Habitats</h1>
-        <a href="/front/html/admin_dashboard.php">Retour au tableau de bord</a>
+    <!-- Header -->
+    <header class="bg-dark text-white text-center py-4">
+        <h1>🏞️ Gestion des Habitats</h1>
     </header>
-    <main>
-        <?php if ($error): ?>
-            <div class="alert alert-danger"> <?= htmlspecialchars($error) ?> </div>
+
+    <main class="container mt-4">
+        <!-- Boutons Retour & Ajouter -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="<?= $dashboardLink ?>" class="btn btn-secondary">⬅ Retour au Dashboard</a>
+            <a href="add_habitat.php" class="btn btn-success">Ajouter un Habitat</a>
+        </div>
+
+        <!-- Message d'erreur -->
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($habitats as $habitat): ?>
+        <!-- Tableau des habitats -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover border rounded-3 shadow">
+                <thead class="table-dark">
                     <tr>
-                        <td><?= htmlspecialchars($habitat['id']) ?></td>
-                        <td><?= htmlspecialchars($habitat['name']) ?></td>
-                        <td><?= htmlspecialchars($habitat['description']) ?></td>
-                        <td>
-                            <a href="/front/html/edit_habitat.php?id=<?= $habitat['id'] ?>">Modifier</a>
-                            <a href="/front/html/delete_habitat.php?id=<?= $habitat['id'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?');">Supprimer</a>
-                        </td>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Actions</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
-        <h2>Ajouter un nouvel habitat</h2>
-        <form action="/front/html/add_habitat.php" method="post">
-            <label for="name">Nom :</label>
-            <input type="text" name="name" id="name" required>
-
-            <label for="description">Description :</label>
-            <textarea name="description" id="description" required></textarea>
-
-            <button type="submit">Ajouter</button>
-        </form>
+                </thead>
+                <tbody>
+                    <?php foreach ($habitats as $habitat): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($habitat['id']) ?></td>
+                            <td><?= htmlspecialchars($habitat['name']) ?></td>
+                            <td><?= htmlspecialchars($habitat['description']) ?></td>
+                            <td>
+                                <a href="edit_habitat.php?id=<?= $habitat['id'] ?>" class="btn btn-warning btn-sm">Modifier</a>
+                                <a href="delete_habitat.php?id=<?= $habitat['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer cet habitat ?');">Supprimer</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

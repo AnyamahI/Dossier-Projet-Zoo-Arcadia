@@ -114,7 +114,7 @@ nav ul li a {
     }
     nav .logo {
         order: 2;
-        position: absolute; /* Permet de le placer indépendamment des autres éléments */
+        position: absolute; 
         left: 50%;
         transform: translateX(-50%);
         height: 100px;
