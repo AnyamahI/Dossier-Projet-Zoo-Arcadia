@@ -194,8 +194,19 @@ try {
         <div class="swiper-button-next"></div>
     </div>
 
-    <div class="text-center mt-4">
-        <a href="/front/html/animals.php" class="btn btn-primary">Plus d'animaux...</a>
+    <div class="shap-divider">
+        <img src="/média/média/shap_divider_vert.png" alt="">
+    </div>
+
+</section>
+
+<section class="sec6">
+    <h2>Les partenair du Zoo</h2>
+    <div class="partenaire">
+        <img class="logo_BornFree" src="/média/média/logo-Born-free.png" alt="">
+        <img class="logo_SPA" src="/média/média/logo-SPA.png" alt="">
+        <img class="logo_WWF" src="/média/média/Panda_contours_only.png" alt="">
+        <img class="logo_AFDPZ" src="/média/média/AFDPZ_logo_bg_vide.png" alt="">
     </div>
 </section>
 
@@ -255,6 +266,43 @@ try {
                 </div>
             </div>
         </div>
-    </div>
-</section>
+        <div class="form-bottom">
+            <input type="submit" name="envoyer" value="Envoyer">
+        </div>
+    </form>
+    <?php include('back/php/contact.php'); ?>
+
+</div>
+
+
+<?php
+
+$user = "root";
+$pwd = "";
+$db = "mysql:host=localhost;dbname=commentaire;charset=utf8;port=3307";
+
+try {
+    $cx = new PDO($db, $user, $pwd);
+    $cx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "SELECT nom, commentaire, date FROM commentaires ORDER BY date DESC";
+    $stmt = $cx->query($sql);
+
+    echo "<h2 class='title-category'>Avis des visiteurs</h2>";
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "<div class='commentaire'>";
+        echo "<img src='/média/profile.png' class='commentaire-pp'>";
+        echo "<div class='commentaire-text'>";
+        echo "<h3 class='commentaire-nom'>" . htmlspecialchars($row['nom']) . "</h3>";
+        echo "<p class='commentaire-message'>" . htmlspecialchars($row['commentaire']) . "</p>";
+        echo "<small>Posté le " . htmlspecialchars($row['date']) . "</small>";
+        echo "</div></div>";
+    }
+} catch (PDOException $e) {
+    echo "Une erreur est survenue lors de la connexion : " . $e->getMessage();
+}
+
+?>
+</div>
 <?php require_once __DIR__ . '/templates/footer.php'; ?>
+</body>
