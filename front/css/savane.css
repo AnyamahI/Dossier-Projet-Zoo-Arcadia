@@ -1,0 +1,419 @@
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 100%;
+  font-family: "Cambria", serif;
+  font-weight: 300;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+@font-face {
+  font-family: "Ryman Eco";
+  src: url("/font/Ryman-Regular.woff2") format("woff2"),
+    url("/font/Ryman-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+h1 {
+  font-family: "Ryman Eco", sans-serif;
+  font-weight: lighter;
+}
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+/**SECTION 1**/
+.sec1 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.photo-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.photo-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 100;
+  left: 0;
+}
+
+/* Effet de flou et de teinte */
+.photo-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(135, 206, 235, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
+.item_bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 95%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.blop_page_animal,
+.description {
+  margin: 0 100px;
+}
+
+.blop_page_animal img,
+.info_IUCN {
+  display: block;
+  max-width: 100%;
+}
+
+.info_IUCN {
+  display: flex;
+  align-items: center;
+}
+
+.titre-blop {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  bottom: -70px;
+}
+
+.titre-blop img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+}
+
+.titre-blop h2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  z-index: 1;
+}
+
+.titre-text {
+  color: #fffff0;
+}
+
+.titre-text h1 {
+  font-size: 128px;
+}
+
+.titre-text p {
+  font-size: 20px;
+}
+
+.shap-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 5;
+  bottom: -2px;
+}
+
+.shap-divider img {
+  width: 100%;
+  height: auto;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1240px) {
+  .sec1 h1 {
+    font-size: 64px;
+  }
+  .item_bg {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .blop_page_guepard {
+    order: 2;
+    text-align: center;
+    width: 100%;
+    margin-top: 50px;
+  }
+
+  .blop_page_guepard img {
+    position: relative;
+    display: inline-block;
+    width: 50%;
+  }
+
+  .titre-blop {
+    bottom: 0;
+  }
+
+  .titre-blop img {
+    width: 70%;
+  }
+}
+/* SECTION 2 */
+.sec2 {
+  background-color: #fffff0;
+  padding: 50px 0;
+}
+
+.sec2 p {
+  font-size: 1.2rem;
+  color: #232323;
+}
+
+.sec2 img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sec2 .col-lg-4 {
+  padding-left: 20px;
+}
+
+@media (max-width: 992px) {
+  .sec2 .col-lg-4 {
+    padding-left: 0;
+    margin-top: 20px;
+  }
+}
+
+/*SECTION 3*/
+.sec3 {
+  background-color: #87ceeb;
+}
+
+.info-box {
+  border-radius: 10px;
+  padding: 15px;
+  color: #fffff0;
+}
+
+.info-box h5 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.info-box p {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.icon-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  padding: 15px;
+  min-height: 100px;
+  color: #fffff0;
+}
+
+.icon-box i {
+  margin-bottom: 8px;
+  color: #fffff0;
+}
+
+/* SECTION 4*/
+
+.sec4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fffff0;
+}
+
+.container .info-map {
+  justify-content: center;
+  align-items: center;
+}
+
+.sec4 .container {
+  display: grid;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.sec4 .container .info-map {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  width: 100%;
+  margin: 50px;
+  margin-left: 50px;
+  text-align: center;
+  color: #232323;
+}
+
+.info-map .habitat {
+  grid-column: 1/ 3;
+}
+
+.info-map .repartition {
+  grid-column: 4/ 6;
+}
+
+.info-map h3 {
+  font-size: x-large;
+  margin-bottom: 10px;
+}
+
+.info-map p {
+  font-size: 16px;
+}
+
+.map {
+  margin: 0 10px 50px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .habita {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .habitat h3,
+  .repartition h3 {
+    font-size: 19px;
+  }
+
+  .habitat p,
+  .repartition p {
+    font-size: 16px;
+  }
+}
+/* SECTION 5*/
+
+/* SECTION 5 */
+.sec5 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: #fffff0;
+  overflow: hidden; /* Assure que rien ne dépasse */
+}
+
+/* Fond coloré sur le quart supérieur */
+.sec5::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background-color: #87ceeb;
+  z-index: 0;
+}
+
+.sec5 .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 50px 20px;
+}
+
+/* Texte */
+.sec5 h3 {
+  font-size: 40px;
+  color: #fffff0;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Styles pour la section 5 */
+.sec5 {
+  position: relative;
+  padding-bottom: 100px;
+}
+
+.herbe-savane,
+.herbe-marais,
+.bambou-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.arbre-savane,
+.arbre-marais,
+.bambou-jungle {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  max-width: 200px;
+  z-index: -1;
+}

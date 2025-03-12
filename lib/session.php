@@ -8,6 +8,12 @@ if (session_status() === PHP_SESSION_NONE) {
         'httponly' => true
     ]);
     session_start();
+
+    if (!isset($_SESSION['ip']) || $_SESSION['ip'] !== $_SERVER['REMOTE_ADDR']) {
+        session_destroy();
+        header('Location: login.php');
+        exit();
+    }
 }
 
 function isUserConnected(): bool
@@ -20,14 +26,37 @@ function isAdmin(): bool
     return isUserConnected() && $_SESSION['user']['role'] === 'admin';
 }
 
-function isVeterinaire()
+function isEmployee()
 {
-
-    return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'veterinaire';
+    return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'employee';
 }
 
-function isEmploye()
+function isVeterinaire(): bool
 {
+    return isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'veterinaire';
+}
 
-    return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'employe';
+function hasPermission(PDO $pdo, string $role, string $resource, string $action): bool
+{
+    $validActions = ['can_create', 'can_read', 'can_update', 'can_delete'];
+
+    // Vérifier que l'action demandée est valide
+    if (!in_array($action, $validActions)) {
+        return false;
+    }
+
+    // Récupérer les permissions du rôle pour cette ressource
+    $query = $pdo->prepare("
+        SELECT $action 
+        FROM permissions 
+        WHERE role = :role AND resource = :resource
+    ");
+    $query->execute([
+        ':role' => $role,
+        ':resource' => $resource
+    ]);
+
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+
+    return $result && $result[$action] == 1;
 }

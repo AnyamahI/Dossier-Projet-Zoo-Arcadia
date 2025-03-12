@@ -1,18 +1,28 @@
-<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <p class="col-md-4 mb-0 text-body-secondary">© 2024 Company, Inc</p>
+<footer class="footer bg-dark text-light py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Copyright -->
+            <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                <p class="mb-0">&copy; 2024 Arcadia Zoo. Tous droits réservés.</p>
+            </div>
 
-    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32">
-            <use xlink:href="#bootstrap"></use>
-        </svg>
-    </a>
+            <!-- Logo centré -->
+            <div class="col-md-4 text-center mb-3 mb-md-0">
+                <a href="/" class="d-flex align-items-center justify-content-center text-light text-decoration-none">
+                    <img src="/média/média/Logo_ArcadiaV2.png" alt="Logo Arcadia" width="60">
+                </a>
+            </div>
 
-    <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-    </ul>
+            <!-- Liens -->
+            <div class="col-md-4 text-center text-md-end">
+                <ul class="nav justify-content-center justify-content-md-end">
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Accueil</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Services</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Tarifs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">FAQ</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </footer>
-</body>
