@@ -72,7 +72,6 @@ var_dump($hashedPassword); // Affiche le hachage
 </section>
 
 <section class="sec3">
-
     <h1>Les Territoires D'Arcadia</h1>
     <div class="container-savane">
 
@@ -91,7 +90,6 @@ var_dump($hashedPassword); // Affiche le hachage
             </p>
         </div>
     </div>
-
     <div class="container-jungle">
 
         <div class="jungle-blop">
@@ -107,7 +105,6 @@ var_dump($hashedPassword); // Affiche le hachage
             </p>
         </div>
     </div>
-
     <div class="container-marais">
 
         <div class="marais-blop">
@@ -152,7 +149,6 @@ var_dump($hashedPassword); // Affiche le hachage
     <div class="shap-divider">
         <img src="/média/média/shap_divider_vert.png" alt="">
     </div>
-
 </section>
 
 <section class="sec6">
@@ -218,8 +214,3 @@ try {
 } catch (PDOException $e) {
     echo "Une erreur est survenue lors de la connexion : " . $e->getMessage();
 }
-
-?>
-</div>
-<?php require_once __DIR__ . '/templates/footer.php'; ?>
-</body>
