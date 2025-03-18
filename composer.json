@@ -1,0 +1,27 @@
+{
+  "name": "isac/arcadia",
+  "description": "Gestion d'un zoo virtuel avec des fonctionnalités frontend & backend.",
+  "type": "project",
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "phpmailer/phpmailer": "^6.8",
+    "vlucas/phpdotenv": "^5.6",
+    "predis/predis": "^2.3"
+  },
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Isac Anyamah",
+      "email": "isacanyamah@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^11.5"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  }
+}

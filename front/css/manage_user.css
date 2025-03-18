@@ -1,0 +1,39 @@
+body {
+  background-color: #f8f9fa;
+}
+header {
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h1 {
+  margin: 0;
+}
+.logout-btn {
+  color: white;
+  text-decoration: none;
+  background-color: #dc3545;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+.logout-btn:hover {
+  background-color: #c82333;
+}
+main {
+  padding: 20px;
+}
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-action {
+  margin-right: 5px;
+}
+table th,
+table td {
+  vertical-align: middle;
+}
