@@ -1,17 +1,18 @@
 <?php
 
-$url = getenv('JAWSDB_URL') ?: die("❌ Erreur : Impossible de récupérer l'URL de la base de données.");
+$clefHeroku = getenv('JAWSDB_URL') ?: die("Erreur : Impossible de récupérer l'URL de la base de données.");
 
-$dbparts = parse_url($url);
+$dbparts = parse_url($clefHeroku);
 
 $host = $dbparts['host'];
-$dbname = ltrim($dbparts['path'], '/');
 $username = $dbparts['user'];
 $password = $dbparts['pass'];
+$database = ltrim($dbparts['path'], '/');
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO("mysql:host=$host;dbname=$database;charset=utf8mb4", $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
 } catch (PDOException $e) {
-    die("❌ Erreur PDO : " . $e->getMessage());
+    die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
