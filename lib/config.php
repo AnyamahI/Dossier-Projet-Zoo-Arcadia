@@ -1,12 +1,18 @@
 <?php
-define('PROJECT_ROOT', $_SERVER['DOCUMENT_ROOT'] . '/arcadia');
+$redisUrl = getenv('REDIS_URL'); // Récupère l'URL de Redis depuis Heroku
 
-// Paramètres de connexion à la base de données
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'arcadia');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+if ($redisUrl) {
+    $parsedUrl = parse_url($redisUrl);
 
-// Autres configurations globales
-define('SITE_NAME', 'Zoo Arcadia');
-define('SITE_URL', 'http://arcadia.local');
+    $host = $parsedUrl['host'];
+    $port = $parsedUrl['port'];
+    $password = isset($parsedUrl['pass']) ? $parsedUrl['pass'] : null;
+
+    $redis->connect($host, $port);
+
+    if ($password) {
+        $redis->auth($password);
+    }
+} else {
+    die("❌ Erreur : Impossible de récupérer l'URL de Redis.");
+}

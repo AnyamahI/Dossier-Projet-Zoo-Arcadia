@@ -25,14 +25,14 @@ if (!$habitatId && !$redirected) {
 }
 
 // Requête pour récupérer les animaux de l'habitat actuel
-$animalsQuery = $pdo->prepare("
+$speciesQuery = $pdo->prepare("
     SELECT a.id, a.name, a.image
-    FROM animals a
+    FROM species a
     WHERE a.habitat_id = :id
 ");
-$animalsQuery->bindParam(':id', $habitatId);
-$animalsQuery->execute();
-$animals = $animalsQuery->fetchAll();
+$speciesQuery->bindParam(':id', $habitatId);
+$speciesQuery->execute();
+$species = $speciesQuery->fetchAll();
 
 // Requête séparée pour récupérer la liste des habitats
 $habitatsQuery = $pdo->query("SELECT * FROM habitats ORDER BY name ASC");
@@ -42,7 +42,7 @@ $habitats = $habitatsQuery->fetchAll();
 
 $query = $pdo->prepare("
     SELECT a.id, a.name, a.image
-    FROM animals a
+    FROM species a
     WHERE a.habitat_id = :id
 ");
 

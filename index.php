@@ -12,6 +12,7 @@ $habitatSavane = [];
 $habitatJungle = [];
 $habitatMarais = [];
 $animalViews = [];
+
 global $redis; // Récupérer l'instance globale
 
 $animalViews = [];
