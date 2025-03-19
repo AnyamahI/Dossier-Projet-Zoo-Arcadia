@@ -12,7 +12,18 @@ $habitatSavane = [];
 $habitatJungle = [];
 $habitatMarais = [];
 $animalViews = [];
-$keys = $redis->keys("visits:animal:*");
+global $redis; // Récupérer l'instance globale
+
+$animalViews = [];
+$keys = [];
+
+if ($redis) { // Vérifier que Redis est bien connecté avant d'exécuter la requête
+    $keys = $redis->keys("visits:animal:*");
+} else {
+    error_log("🔍 Debug - REDIS_URL: " . getenv('REDIS_URL'));
+    error_log("🔍 Debug - Parsed URL: " . print_r($parsedUrl, true));
+    error_log("❌ Erreur de connexion à Redis : " . $e->getMessage());
+    }
 
 foreach ($keys as $key) {
     $animal_id = str_replace("visits:animal:", "", $key);
