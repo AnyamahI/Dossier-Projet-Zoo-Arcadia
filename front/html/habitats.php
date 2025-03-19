@@ -1,19 +1,17 @@
-habitat.php
-
 <?php
 session_start();
 require '../../lib/session.php';
 require '../../lib/pdo.php';
 
-// Vérification de l'ID de l'habitat
+// Vérification de l'ID
 $habitatId = $_GET['id'] ?? null;
 $redirected = $_GET['redirected'] ?? false;
 
-// 🔹 Si l'ID est manquant et que la redirection n'a pas encore eu lieu
+// Si l'ID est manquant et que la redirection n'a pas encore eu lieu
 if (!$habitatId && !$redirected) {
-    // Récupère le premier habitat disponible
+    // Récupère le premier habitat pour redirection par défaut
     $firstHabitatQuery = $pdo->query("SELECT id FROM habitats LIMIT 1");
-    $firstHabitat = $firstHabitatQuery->fetch(PDO::FETCH_ASSOC);
+    $firstHabitat = $firstHabitatQuery->fetch();
     $firstHabitatId = $firstHabitat['id'] ?? null;
 
     if ($firstHabitatId) {
@@ -26,19 +24,31 @@ if (!$habitatId && !$redirected) {
     exit("❌ ID manquant après redirection.");
 }
 
-// 🔹 Récupérer les **espèces** au lieu des animaux
-$speciesQuery = $pdo->prepare("
-    SELECT s.id, s.name, s.image
-    FROM species s
-    WHERE s.habitat_id = :id
+// Requête pour récupérer les animaux de l'habitat actuel
+$animalsQuery = $pdo->prepare("
+    SELECT a.id, a.name, a.image
+    FROM animals a
+    WHERE a.habitat_id = :id
 ");
-$speciesQuery->bindParam(':id', $habitatId, PDO::PARAM_INT);
-$speciesQuery->execute();
-$species = $speciesQuery->fetchAll(PDO::FETCH_ASSOC);
+$animalsQuery->bindParam(':id', $habitatId);
+$animalsQuery->execute();
+$animals = $animalsQuery->fetchAll();
 
-// 🔹 Récupérer la liste des habitats
+// Requête séparée pour récupérer la liste des habitats
 $habitatsQuery = $pdo->query("SELECT * FROM habitats ORDER BY name ASC");
-$habitats = $habitatsQuery->fetchAll(PDO::FETCH_ASSOC);
+$habitats = $habitatsQuery->fetchAll();
+
+
+
+$query = $pdo->prepare("
+    SELECT a.id, a.name, a.image
+    FROM animals a
+    WHERE a.habitat_id = :id
+");
+
+// Récupération de la liste des habitats
+$query = $pdo->query("SELECT * FROM habitats ORDER BY name ASC");
+$habitats = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -81,29 +91,7 @@ $habitats = $habitatsQuery->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             <?php endforeach; ?>
-        </div>
-    </section>
 
-    <!-- Liste des espèces de l'habitat sélectionné -->
-    <section class="container py-5">
-        <h2 class="text-center mb-4">Espèces de l'habitat</h2>
-        
-        <div class="row justify-content-center">
-            <?php if (!empty($species)): ?>
-                <?php foreach ($species as $specie): ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card text-center p-3">
-                            <img src="<?= htmlspecialchars($specie['image']) ?>" class="card-img-top img-fluid" alt="<?= htmlspecialchars($specie['name']) ?>">
-                            <div class="card-body">
-                                <h5 class="card-title"><?= htmlspecialchars($specie['name']) ?></h5>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="text-center">Aucune espèce trouvée pour cet habitat.</p>
-            <?php endif; ?>
-        </div>
     </section>
 
     <!-- Footer -->
