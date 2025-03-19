@@ -1,8 +1,6 @@
 <?php
 
-$clefHeroku = getenv('JAWSDB_URL') ?: die("Erreur : Impossible de récupérer l'URL de la base de données.");
-var_dump($clefHeroku);
-die();
+$clefHeroku = getenv('JAWSDB_URL') ?: 
 
 $dbparts = parse_url($clefHeroku);
 
