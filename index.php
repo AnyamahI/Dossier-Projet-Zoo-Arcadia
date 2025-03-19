@@ -5,6 +5,7 @@ require_once __DIR__ . '/templates/header.html';
 require 'lib/pdo.php';
 require_once __DIR__ . '/lib/redis.php';
 
+global $redis;
 
 // Récupérer les animaux les plus populaires depuis Redis
 $habitatSavane = [];

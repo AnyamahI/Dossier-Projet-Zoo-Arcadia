@@ -1,11 +1,12 @@
 <?php
 $redisUrl = getenv('REDIS_URL') ?: getenv('REDIS');
+$redis = null; // Assure qu'il est bien défini avant d'essayer de l'utiliser
 
 if ($redisUrl) {
     $parsedUrl = parse_url($redisUrl);
+    $redis = new Redis();
 
     try {
-        // Vérifier si c'est du "rediss://" et activer TLS si nécessaire
         $useTls = strpos($redisUrl, 'rediss://') === 0;
 
         if ($useTls) {
@@ -16,7 +17,7 @@ if ($redisUrl) {
                 NULL,
                 0,
                 0,
-                ['stream_context' => stream_context_create(['ssl' => ['verify_peer_name' => false, 'verify_peer' => false]]),]
+                ['stream_context' => stream_context_create(['ssl' => ['verify_peer_name' => false, 'verify_peer' => false]])]
             );
         } else {
             $redis->connect($parsedUrl['host'], $parsedUrl['port']);
@@ -33,7 +34,7 @@ if ($redisUrl) {
         }
     } catch (Exception $e) {
         error_log("❌ Erreur de connexion à Redis : " . $e->getMessage());
-        $redis = null; // Désactiver Redis en cas d'erreur
+        $redis = null; // Assure que Redis est bien null en cas d'erreur
     }
 } else {
     error_log("❌ REDIS_URL non trouvée dans les variables d’environnement !");
