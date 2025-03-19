@@ -57,31 +57,6 @@ $habitats = $habitatsQuery->fetchAll(PDO::FETCH_ASSOC);
     <!-- Navigation -->
     <?php require __DIR__ . '/../../templates/header.html'; ?>
 
-    <!-- Liste des habitats -->
-    <section class="container py-5">
-        <h1 class="text-center mb-4">Nos Habitats</h1>
-
-        <div class="d-flex flex-column align-items-center gap-4">
-            <?php foreach ($habitats as $habitat): ?>
-                <div class="col-md-10 mb-4">
-                    <div class="card habitat-card border-0 position-relative text-center p-3"
-                        style="background: url('<?= htmlspecialchars($habitat['image']) ?>') center/cover no-repeat;">
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center"
-                           style="background-color: rgba(0, 0, 0, 0.2);">
-                            <h1 class="text-white">
-                                <?= htmlspecialchars($habitat['name']) ?>
-                            </h1>
-                            <button class="btn btn-primary voir-details mt-2" data-id="<?= $habitat['id'] ?>">
-                                Voir plus
-                            </button>
-                            <div id="details-<?= $habitat['id'] ?>" class="mt-3"></div> <!-- Conteneur AJAX -->
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-    </section>
 
     <!-- Liste des espèces de l'habitat sélectionné -->
     <section class="container py-5">
