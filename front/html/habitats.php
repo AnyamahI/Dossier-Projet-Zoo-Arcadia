@@ -3,13 +3,13 @@ session_start();
 require '../../lib/session.php';
 require '../../lib/pdo.php';
 
-// Vérification de l'ID
+// Vérification de l'ID de l'habitat
 $habitatId = $_GET['id'] ?? null;
 $redirected = $_GET['redirected'] ?? false;
 
-// Si l'ID est manquant et que la redirection n'a pas encore eu lieu
+// 🔹 Si l'ID est manquant et que la redirection n'a pas encore eu lieu
 if (!$habitatId && !$redirected) {
-    // Récupère le premier habitat pour redirection par défaut
+    // Récupère le premier habitat disponible
     $firstHabitatQuery = $pdo->query("SELECT id FROM habitats LIMIT 1");
     $firstHabitat = $firstHabitatQuery->fetch(PDO::FETCH_ASSOC);
     $firstHabitatId = $firstHabitat['id'] ?? null;
@@ -24,7 +24,7 @@ if (!$habitatId && !$redirected) {
     exit("❌ ID manquant après redirection.");
 }
 
-// 🔹 Requête pour récupérer les **espèces** de l'habitat sélectionné
+// 🔹 Récupérer les **espèces** au lieu des animaux
 $speciesQuery = $pdo->prepare("
     SELECT s.id, s.name, s.image
     FROM species s
@@ -34,7 +34,7 @@ $speciesQuery->bindParam(':id', $habitatId, PDO::PARAM_INT);
 $speciesQuery->execute();
 $species = $speciesQuery->fetchAll(PDO::FETCH_ASSOC);
 
-// 🔹 Requête pour récupérer tous les habitats
+// 🔹 Récupérer la liste des habitats
 $habitatsQuery = $pdo->query("SELECT * FROM habitats ORDER BY name ASC");
 $habitats = $habitatsQuery->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -57,6 +57,30 @@ $habitats = $habitatsQuery->fetchAll(PDO::FETCH_ASSOC);
     <!-- Navigation -->
     <?php require __DIR__ . '/../../templates/header.html'; ?>
 
+    <!-- Liste des habitats -->
+    <section class="container py-5">
+        <h1 class="text-center mb-4">Nos Habitats</h1>
+
+        <div class="d-flex flex-column align-items-center gap-4">
+            <?php foreach ($habitats as $habitat): ?>
+                <div class="col-md-10 mb-4">
+                    <div class="card habitat-card border-0 position-relative text-center p-3"
+                        style="background: url('<?= htmlspecialchars($habitat['image']) ?>') center/cover no-repeat;">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center"
+                           style="background-color: rgba(0, 0, 0, 0.2);">
+                            <h1 class="text-white">
+                                <?= htmlspecialchars($habitat['name']) ?>
+                            </h1>
+                            <button class="btn btn-primary voir-details mt-2" data-id="<?= $habitat['id'] ?>">
+                                Voir plus
+                            </button>
+                            <div id="details-<?= $habitat['id'] ?>" class="mt-3"></div> <!-- Conteneur AJAX -->
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
 
     <!-- Liste des espèces de l'habitat sélectionné -->
     <section class="container py-5">
