@@ -16,11 +16,12 @@
             <!-- Liens -->
             <div class="col-md-4 text-center text-md-end">
                 <ul class="nav justify-content-center justify-content-md-end">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Accueil</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Services</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Tarifs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">FAQ</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-light">Contact</a></li>
+                   <div class="navlinks-container">
+                        <a href="/index.php">Acceuil</a>
+                        <a href="/front/html/services.php">Services</a>
+                        <a href="/front/html/animals.php">Animaux</a>
+                        <a href="/front/html/habitats.php">Habitats</a>
+                    </div>
                 </ul>
             </div>
         </div>
