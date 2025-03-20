@@ -272,9 +272,6 @@ try {
                 </div>
             </div>
         </div>
-        <div class="form-bottom">
-            <input type="submit" name="envoyer" value="Envoyer">
-        </div>
     </div>
 </section>
 </div>
