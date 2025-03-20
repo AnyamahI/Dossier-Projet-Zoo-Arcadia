@@ -12,9 +12,6 @@ $services = $query->fetchAll(PDO::FETCH_ASSOC);
 
     <section class="sec1 text-center text-white d-flex align-items-center justify-content-center"
         style="background: url('/média/service-BG.png') center/cover no-repeat; height: 80vh;">
-        <div class="shap-divider position-absolute bottom-0 w-100">
-            <img src="/média/shap_divider_vert.png" class="img-fluid" alt="Shape Divider">
-        </div>
         <h1 class="display-1 fw-light" style="font-family: 'Ryman Eco', sans-serif">Les services d'ARCADIA</h1>
     </section>
 
