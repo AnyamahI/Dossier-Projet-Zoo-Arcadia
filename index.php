@@ -229,7 +229,7 @@ try {
                     <form action="/front/html/submit_review.php" method="post" class="avis-form">
                         <div class="mb-3">
                             <label for="pseudo" class="form-label">Votre Nom</label>
-                            <input type="text" id="pseudo" name="pseudo" class="form-control" placeholder="Entrez votre nom" required>
+                            <input type="text" id="pseudo" name="pseudo" class="form-control" placeholder="Nom" required>
                         </div>
                         <div class="mb-3">
                             <label for="review" class="form-label">Votre Avis</label>
