@@ -254,8 +254,8 @@ try {
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
                                 echo '<div class="carousel-item ' . ($first ? 'active' : '') . '">
                                         <div class="text-center">
-                                            <p class="avis-text fst-italic">« ' . htmlspecialchars($row['review']) . ' »</p>
-                                            <h6 class="avis-author text-primary">- ' . htmlspecialchars($row['pseudo']) . '</h6>
+                                            <p class="avis-text fst-italic">« ' . htmlspecialchars_decode($row['review']) . ' »</p>
+                                            <h6 class="avis-author text-primary">- ' . htmlspecialchars_decode($row['pseudo']) . '</h6>
                                         </div>
                                       </div>';
                                 $first = false;
