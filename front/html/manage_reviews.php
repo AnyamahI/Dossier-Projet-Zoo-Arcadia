@@ -84,7 +84,7 @@ $reviews = $query->fetchAll(PDO::FETCH_ASSOC);
                     <tr>
                         <td><?= htmlspecialchars($review['id']) ?></td>
                         <td><?= htmlspecialchars($review['pseudo']) ?></td>
-                        <td><?= htmlspecialchars($review['review']) ?></td>
+                        <td><?= htmlspecialchars_decode($review['review']) ?></td>
                         <td><?= $review['is_validated'] ? '✅' : '❌' ?></td>
                         <td>
                             <?php if (!$review['is_validated']): ?>
