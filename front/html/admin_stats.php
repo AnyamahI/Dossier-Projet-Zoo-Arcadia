@@ -12,29 +12,36 @@ if (!isAdmin()) {
 
 $animalViews = [];
 
-// Récupérer toutes les clés Redis qui contiennent les stats des animaux
-$keys = $redis->keys("visits:animal:*");
+if ($redis !== null) {
+    try {
+        // Récupérer toutes les clés Redis
+        $keys = $redis->keys("visits:animal:*");
 
-foreach ($keys as $key) {
-    $animal_id = str_replace("visits:animal:", "", $key);
-    $views = $redis->get($key);
+        foreach ($keys as $key) {
+            $animal_id = str_replace("visits:animal:", "", $key);
+            $views = $redis->get($key);
 
-    // Récupérer le nom de l'animal depuis la base de données
-    $query = $pdo->prepare("SELECT name FROM animals WHERE id = :id");
-    $query->execute([':id' => $animal_id]);
-    $animal = $query->fetch(PDO::FETCH_ASSOC);
+            // Récupérer le nom de l'animal depuis la base de données
+            $query = $pdo->prepare("SELECT name FROM animals WHERE id = :id");
+            $query->execute([':id' => $animal_id]);
+            $animal = $query->fetch(PDO::FETCH_ASSOC);
 
-    if ($animal) {
-        $animalViews[] = [
-            'name' => $animal['name'],
-            'views' => (int) $views
-        ];
+            if ($animal) {
+                $animalViews[] = [
+                    'name' => $animal['name'],
+                    'views' => (int) $views
+                ];
+            }
+        }
+
+        // Trier les animaux par nombre de vues
+        usort($animalViews, fn($a, $b) => $b['views'] - $a['views']);
+    } catch (Exception $e) {
+        error_log("❌ Erreur lors de la lecture de Redis : " . $e->getMessage());
     }
+} else {
+    error_log("❌ Redis n'est pas disponible, les statistiques ne seront pas affichées.");
 }
-
-// Trier les animaux par nombre de vues (du plus vu au moins vu)
-usort($animalViews, fn($a, $b) => $b['views'] - $a['views']);
-
 ?>
 
 <!DOCTYPE html>
