@@ -24,8 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
 
     // Vérifications des champs
     if (empty($email) || empty($password) || empty($role) || empty($name)) {
-    $error = "Tous les champs sont requis.";
-    }
+        $error = "Tous les champs sont requis.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Adresse email invalide.";
     } elseif (!in_array($role, ['employee', 'veterinaire'])) {
@@ -45,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
                 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
                 // Insérer l'utilisateur en BDD
-                $query = $pdo->prepare("INSERT INTO users (email, password, role) VALUES (:email, :password, :role)");
+                $query = $pdo->prepare("INSERT INTO users (email, password, role, name) VALUES (:email, :password, :role, :name)");
                 $query->bindParam(':email', $email);
                 $query->bindParam(':password', $hashedPassword);
                 $query->bindParam(':role', $role);
