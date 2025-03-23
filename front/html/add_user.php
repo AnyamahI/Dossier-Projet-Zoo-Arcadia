@@ -20,10 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
     $role = htmlspecialchars(trim($_POST['role']));
+    $name = htmlspecialchars(trim($_POST['name']));
 
     // Vérifications des champs
-    if (empty($email) || empty($password) || empty($role)) {
-        $error = "Tous les champs sont requis.";
+    if (empty($email) || empty($password) || empty($role) || empty($name)) {
+    $error = "Tous les champs sont requis.";
+    }
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Adresse email invalide.";
     } elseif (!in_array($role, ['employee', 'veterinaire'])) {
@@ -47,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
                 $query->bindParam(':email', $email);
                 $query->bindParam(':password', $hashedPassword);
                 $query->bindParam(':role', $role);
+                $query->bindParam(':name', $name);
                 $query->execute();
 
                 // ✅ Envoi de l'email avec PHPMailer
@@ -66,22 +69,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
                     $mail->isHTML(true);
                     $mail->Subject = 'Bienvenue sur Arcadia Zoo !';
 
-                    // 💌 Nouveau contenu de l'email
+                    // Nouveau contenu de l'email
                     $mail->Body = "
                         <div style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; border-radius: 10px;'>
                             <h2 style='color: #2a9d8f;'>Bienvenue sur Arcadia Zoo 🎉</h2>
-                            <p>Bonjour,</p>
+                            <p>Bonjour,<strong>$name</strong>,</p>
                             <p>Nous avons le plaisir de vous informer que votre compte sur <strong>Arcadia Zoo</strong> a été créé avec succès.</p>
                             <p><strong>Votre adresse email de connexion :</strong> <br> <strong>$email</strong></p>
-                            <p><strong>🔐 Important :</strong> Pour des raisons de sécurité, votre mot de passe ne peut pas être envoyé par email.</p>
+                            <p><strong>Important :</strong> Pour des raisons de sécurité, votre mot de passe ne peut pas être envoyé par email.</p>
                             <p>Veuillez vous rapprocher de votre administrateur pour récupérer votre mot de passe.</p>
                             <hr>
-                            <p>À bientôt sur <strong>Arcadia Zoo</strong> ! 🦁🐘</p>
+                            <p>À bientôt sur <strong>Arcadia Zoo</strong> !</p>
                         </div>
                     ";
 
                     $mail->send();
-                    $message = "✅ Utilisateur créé avec succès. Un email a été envoyé à $email.";
+                    $message = "Utilisateur créé avec succès. Un email a été envoyé à $email.";
                 } catch (Exception $e) {
                     $error = "Utilisateur créé, mais l'email n'a pas pu être envoyé. Erreur : {$mail->ErrorInfo}";
                 }
@@ -125,6 +128,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
             <div class="mb-3">
                 <label for="email" class="form-label">Email :</label>
                 <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="name" class="form-label">Nom :</label>
+                <input type="text" id="name" name="name" class="form-control" required>
             </div>
 
             <div class="mb-3">
