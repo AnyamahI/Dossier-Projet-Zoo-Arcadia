@@ -42,15 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Vérification des champs obligatoires
     if (empty($name) || empty($description) || empty($family) || empty($order_bio) || empty($class_bio) || empty($habitat_id)) {
-        $error = "❌ Tous les champs obligatoires doivent être remplis.";
+        $error = "Tous les champs obligatoires doivent être remplis.";
     } else {
         try {
-            // 🔹 Gestion des uploads d'images
+            // Gestion des uploads d'images
             $uploads = [];
             $speciesUploadDir = '../../uploads/species/';
             $animalUploadDir = '../../uploads/animals/';
 
-            // 🔹 Liste des images spécifiques à l'espèce (stockées dans `/uploads/species/`)
+            // Liste des images spécifiques à l'espèce (stockées dans `/uploads/species/`)
             $speciesImageFields = ['IUCN_image', 'distribution_map', 'description_image', 'cover_image', 'secondary_image'];
 
             foreach ($speciesImageFields as $field) {
@@ -88,13 +88,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $error = "❌ Erreur lors du téléchargement de l'image principale.";
                 }
             }
-            // 🔹 Vérification de l'existence de l'espèce
+            // Vérification de l'existence de l'espèce
             $query = $pdo->prepare("SELECT id FROM species WHERE name = :name");
             $query->execute([':name' => $name]);
             $existing_species = $query->fetch(PDO::FETCH_ASSOC);
 
             if (!$existing_species) {
-                // 🔹 Insérer l'espèce dans la base de données
+                // Insérer l'espèce dans la base de données
                 $query = $pdo->prepare("
                     INSERT INTO species (name, scientific_name, description, IUCN_status, IUCN_image, size, weight, lifespan, population_status, 
                                         distribution, distribution_map, family, order_bio, class_bio, description_image, 
@@ -131,10 +131,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $species_id = $existing_species['id'];
             }
-            // 🔹 Ajouter un premier individu dans `animals`
+            // Ajouter un premier individu dans `animals`
             if (empty($error)) {
 
-                // 🔹 Générer la page de l'espèce
+                // Générer la page de l'espèce
                 $dir = __DIR__ . '/../../species/';
                 if (!is_dir($dir)) {
                     mkdir($dir, 0777, true);
@@ -146,13 +146,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $content .= "require __DIR__ . '/../templates/species_template.php';\n";
                 file_put_contents($file_name, $content);
 
-                // 🔹 Succès et redirection
-                $success = "✅ L'espèce <strong>$name</strong> a bien été ajoutée avec succès !";
+                // Succès et redirection
+                $success = "L'espèce <strong>$name</strong> a bien été ajoutée avec succès !";
                 header("Location: /species/$species_id.php");
                 exit;
             }
         } catch (PDOException $e) {
-            $error = "❌ Erreur lors de l'ajout : " . $e->getMessage();
+            $error = "Erreur lors de l'ajout : " . $e->getMessage();
         }
     }
 }
