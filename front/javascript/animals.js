@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
     cards.forEach((card) => {
       let name = card.querySelector(".card-title").innerText.toLowerCase();
       if (name.includes(filter)) {
-        card.classList.remove("d-none"); // ✅ Affiche l'élément
+        card.classList.remove("d-none"); // affiche l'élément
       } else {
-        card.classList.add("d-none"); // ❌ Masque l'élément
+        card.classList.add("d-none"); // Masque l'élément
       }
     });
   });
