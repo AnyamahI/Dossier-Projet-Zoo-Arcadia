@@ -1,5 +1,5 @@
 <?php
-$redisUrl = getenv('REDIS_URL'); // Récupère l'URL de Redis depuis Heroku
+$redisUrl = getenv('REDIS_URL'); // URL de Redis depuis Heroku
 
 if ($redisUrl) {
     $parsedUrl = parse_url($redisUrl);
@@ -8,10 +8,10 @@ if ($redisUrl) {
     $port = $parsedUrl['port'] ?? 6379;
     $password = $parsedUrl['pass'] ?? null;
 
-    $redis = new Redis(); // ← Cette ligne manquait !
+    $redis = new Redis();
 
     try {
-        $redis->connect($host, $port, 2.5); // timeout de 2.5s
+        $redis->connect($host, $port, 2.5); 
 
         if ($password) {
             $redis->auth($password);
@@ -20,7 +20,7 @@ if ($redisUrl) {
         error_log("✅ Connexion Redis réussie !");
     } catch (Exception $e) {
         error_log("❌ Erreur de connexion à Redis : " . $e->getMessage());
-        $redis = null; // Ne pas bloquer tout le site si Redis échoue
+        $redis = null; 
     }
 } else {
     error_log("REDIS_URL non défini. Redis désactivé.");
