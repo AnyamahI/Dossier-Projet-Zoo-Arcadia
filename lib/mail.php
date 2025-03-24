@@ -16,7 +16,7 @@ function sendEmail($to, $subject, $body)
     $mail = new PHPMailer(true);
 
     try {
-        // ✅ Désactiver la vérification SSL pour contourner le problème de certificat
+        // Désactiver la vérification SSL pour contourner le problème de certificat
         $mail->SMTPOptions = [
             'ssl' => [
                 'verify_peer' => false,
@@ -25,7 +25,7 @@ function sendEmail($to, $subject, $body)
             ]
         ];
 
-        // ✅ Configuration SMTP
+        // Configuration SMTP
         $mail->isSMTP();
         $mail->Host = getenv('SMTP_HOST');
         $mail->SMTPAuth = true;
@@ -37,22 +37,16 @@ function sendEmail($to, $subject, $body)
         echo "🔍 \$_ENV['SMTP_USER'] : " . ($_ENV['SMTP_USER'] ?? 'Non défini') . "<br>";
         echo "🔍 \$_SERVER['SMTP_USER'] : " . ($_SERVER['SMTP_USER'] ?? 'Non défini') . "<br>";
 
-        // ✅ Expéditeur et Destinataire
+        // Expéditeur et Destinataire
         $mail->setFrom($_ENV['SMTP_USER'], 'Zoo Arcadia');
         $mail->addAddress($to);
 
-        // ✅ Contenu de l'email
+        // Contenu de l'email
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body    = $body;
 
-        // ✅ Mode Debug SMTP pour voir les erreurs (à désactiver en production)
-        $mail->SMTPDebug = 3;
-        $mail->Debugoutput = function ($str, $level) {
-            echo "🔍 SMTP Debug [$level]: $str <br>";
-        };
-
-        // ✅ Envoi de l'email
+        // Envoi de l'email
         if ($mail->send()) {
             return true;
         } else {
