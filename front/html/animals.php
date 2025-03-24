@@ -14,7 +14,7 @@ try {
 
     $speciess = $query->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "<div class='alert alert-danger'>❌ Erreur lors de la récupération des animaux : " . htmlspecialchars($e->getMessage()) . "</div>";
+    echo "<div class='alert alert-danger'>Erreur lors de la récupération des animaux : " . htmlspecialchars($e->getMessage()) . "</div>";
 }
 
 ?>
