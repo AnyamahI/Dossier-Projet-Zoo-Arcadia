@@ -13,7 +13,7 @@ function verifyUserLoginPassword(PDO $pdo, string $email, string $password): boo
 
     if ($user && password_verify($password, $user['password'])) {
         if ($user['role'] !== 'admin') {
-            return false; // Empêcher un utilisateur non autorisé d'accéder
+            return false; 
         }
         return $user;
     }
