@@ -9,7 +9,7 @@ var_dump(hasPermission($pdo, $_SESSION['user']['role'], 'services', 'can_create'
 var_dump(hasPermission($pdo, $_SESSION['user']['role'], 'services', 'can_update'));
 var_dump(hasPermission($pdo, $_SESSION['user']['role'], 'services', 'can_delete'));
 
-exit; // Stoppe l'exécution ici pour voir les résultats*/
+*/
 
 if (!hasPermission($pdo, $_SESSION['user']['role'], 'services', 'can_read')) {
     header('Location: ../login.php');
