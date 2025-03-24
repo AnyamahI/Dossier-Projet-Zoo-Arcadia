@@ -96,12 +96,12 @@ if (isset($_SESSION['user']['role'])) {
         <?php else: ?>
             <div class="card shadow-lg p-4">
                 <h2 class="text-center"><?= htmlspecialchars($animal['name']) ?> (<?= htmlspecialchars($animal['species']) ?>)</h2>
-                <p><strong>🌍 Habitat :</strong> <?= htmlspecialchars($animal['habitat']) ?></p>
-                <p><strong>🍽️ Nourriture :</strong> <?= htmlspecialchars($animal['food'] ?? 'Non spécifié') ?></p>
-                <p><strong>🗓️ Dernier contrôle :</strong> <?= $animal['last_checkup_date'] ?? 'Non renseigné' ?></p>
+                <p><strong>Habitat :</strong> <?= htmlspecialchars($animal['habitat']) ?></p>
+                <p><strong>Nourriture :</strong> <?= htmlspecialchars($animal['food'] ?? 'Non spécifié') ?></p>
+                <p><strong>Dernier contrôle :</strong> <?= $animal['last_checkup_date'] ?? 'Non renseigné' ?></p>
             </div>
 
-            <h3 class="mt-5">📋 Rapports vétérinaires</h3>
+            <h3 class="mt-5">Rapports vétérinaires</h3>
             <?php if (empty($reports)): ?>
                 <p>Aucun rapport disponible pour cet animal.</p>
             <?php else: ?>
