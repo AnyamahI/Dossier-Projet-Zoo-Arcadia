@@ -24,15 +24,15 @@ h1 {
 }
 
 .background-vertical {
-  display: flex; /* Utilisation de Flexbox pour disposer les images horizontalement */
+  display: flex; 
   width: 100%;
-  height: 750px; /* Hauteur du conteneur */
+  height: 750px; 
 }
 
 .image {
-  flex: 1; /* Chaque image prend une part égale de l'espace disponible */
-  background-size: cover; /* Chaque image couvre tout le conteneur de l'élément */
-  background-position: center; /* Centrer les images */
+  flex: 1; 
+  background-size: cover; 
+  background-position: center; 
 }
 
 .image:nth-child(1) {
@@ -103,20 +103,17 @@ h1 {
   z-index: 2;
 }
 
-/* Suppression des bordures et ombres des cartes */
 .animal-card .card {
   border: none;
   box-shadow: none;
   background: transparent;
 }
 
-/* Centrage du texte et des éléments */
 .animal-card .card-body {
   text-align: center;
   padding-top: 10px;
 }
 
-/* Ajustement des images pour ne pas être coupées */
 .animal-card img {
   width: 100%;
   height: auto;
