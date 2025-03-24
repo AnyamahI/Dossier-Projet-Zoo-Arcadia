@@ -102,7 +102,7 @@ if (empty($_SESSION['user']['name'])) {
             </div>
         </div>
 
-        <a href="admin_stats.php" class="btn btn-info">📊 Voir les Statistiques</a>
+        <a href="admin_stats.php" class="btn btn-info">Voir les Statistiques</a>
 
     </div>
 </main>
