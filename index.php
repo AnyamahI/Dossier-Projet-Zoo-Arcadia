@@ -21,9 +21,9 @@ $keys = [];
 if ($redis) { // Vérifier que Redis est bien connecté avant d'exécuter la requête
     $keys = $redis->keys("visits:animal:*");
 } else {
-    error_log("🔍 Debug - REDIS_URL: " . getenv('REDIS_URL'));
-    error_log("🔍 Debug - Parsed URL: " . print_r($parsedUrl, true));
-    error_log("❌ Erreur de connexion à Redis : " . $e->getMessage());
+    error_log("Debug - REDIS_URL: " . getenv('REDIS_URL'));
+    error_log("Debug - Parsed URL: " . print_r($parsedUrl, true));
+    error_log("Erreur de connexion à Redis : " . $e->getMessage());
     }
 
 foreach ($keys as $key) {
@@ -113,7 +113,7 @@ try {
 <!-- SECTION 2: Infos du Zoo -->
 <section class="sec2">
     <div class="container-fluid">
-        <!-- ✅ Conteneur supérieur avec infos -->
+        <!-- Conteneur supérieur avec infos -->
         <div class="row justify-content-center text-center container-info">
             <div class="col-6 col-md-2">
                 <i class="bi bi-clock"></i>
@@ -137,7 +137,7 @@ try {
             </div>
         </div>
 
-        <!-- ✅ Conteneur inférieur avec image et texte -->
+        <!-- Conteneur inférieur avec image et texte -->
         <div class="row align-items-end container-intro">
             <div class="col-md-7 text-center p-0">
                 <img src="/média/média/furret-removebg.png" class="img-fluid furret-img" alt="Furret">
