@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (move_uploaded_file($_FILES['main_image']['tmp_name'], $uploadFile)) {
             $mainImagePath = '/uploads/species/' . $filename;
         } else {
-            $error = "❌ Erreur lors du téléchargement de l'image principale.";
+            $error = "Erreur lors du téléchargement de l'image principale.";
         }
     }
 
@@ -145,13 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         $species_id = $_POST["species_id"] ?? null;
         if ($query->rowCount() > 0) {
-            echo "✅ Mise à jour réussie.";
-        } else {
-            echo "⚠️ Aucune modification appliquée. Vérifiez vos données.";
-        }
-        $success = "✅ Animal mis à jour";
+            echo "Mise à jour réussie.";
+        $success = "Animal mis à jour";
     } catch (PDOException $e) {
-        $error = "❌ Erreur lors de la mise à jour de l'animal : " . $e->getMessage();
+        $error = "Erreur lors de la mise à jour de l'animal : " . $e->getMessage();
     }
 }
 ?>
