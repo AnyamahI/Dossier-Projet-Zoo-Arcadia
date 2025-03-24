@@ -37,10 +37,10 @@ if ($redis !== null) {
         // Trier les animaux par nombre de vues
         usort($animalViews, fn($a, $b) => $b['views'] - $a['views']);
     } catch (Exception $e) {
-        error_log("❌ Erreur lors de la lecture de Redis : " . $e->getMessage());
+        error_log("Erreur lors de la lecture de Redis : " . $e->getMessage());
     }
 } else {
-    error_log("❌ Redis n'est pas disponible, les statistiques ne seront pas affichées.");
+    error_log("Redis n'est pas disponible, les statistiques ne seront pas affichées.");
 }
 ?>
 
