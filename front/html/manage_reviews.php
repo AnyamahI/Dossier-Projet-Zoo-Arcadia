@@ -22,7 +22,7 @@ if (isset($_GET['validate'])) {
         $_SESSION['error'] = "Erreur lors de la validation de l'avis.";
     }
 
-    header('Location: manage_reviews.php'); // 🔹 Évite le chargement infini
+    header('Location: manage_reviews.php'); // Évite le chargement infini
     exit;
 }
 
@@ -37,7 +37,7 @@ if (isset($_GET['delete'])) {
         $_SESSION['error'] = "Erreur lors de la suppression de l'avis.";
     }
 
-    header('Location: manage_reviews.php'); // 🔹 Évite le chargement infini
+    header('Location: manage_reviews.php'); // Évite le chargement infini
     exit;
 }
 
