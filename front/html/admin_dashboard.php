@@ -2,8 +2,7 @@
 ob_start();
 session_start();
 require '../../lib/session.php';
-require '../../lib/pdo.php'; // Assure-toi d'inclure PDO
-
+require '../../lib/pdo.php'; 
 // Vérifier si l'utilisateur est administrateur
 if (!isAdmin()) {
     header('Location: login.php');
@@ -28,7 +27,7 @@ if ($user) {
 
 // Vérifier si le nom est bien défini après la récupération
 if (empty($_SESSION['user']['name'])) {
-    $_SESSION['user']['name'] = "Administrateur"; // Valeur par défaut si le nom est NULL
+    $_SESSION['user']['name'] = "Administrateur"; 
 }
 ?>
 <!DOCTYPE html>
