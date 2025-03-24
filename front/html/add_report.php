@@ -42,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Vérifications avancées
     if (empty($animal_id) || empty($state) || empty($weight) || empty($visit_date)) {
-        $error = '❌ Tous les champs obligatoires doivent être remplis.';
+        $error = 'Tous les champs obligatoires doivent être remplis.';
     } elseif (!is_numeric($weight) || $weight <= 0) {
-        $error = '❌ Le poids doit être un nombre positif.';
+        $error = 'Le poids doit être un nombre positif.';
     } elseif (strtotime($visit_date) > time()) {
-        $error = '❌ La date de passage ne peut pas être dans le futur.';
+        $error = 'La date de passage ne peut pas être dans le futur.';
     } else {
         try {
             $query = $pdo->prepare("INSERT INTO vet_reports (animal_id, vet_id, state, food, weight, visit_date, details) VALUES (:animal_id, :vet_id, :state, :food, :weight, :visit_date, :details)");
@@ -59,9 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':visit_date' => $visit_date,
                 ':details' => $details
             ]);
-            $success = "✅ Rapport ajouté avec succès.";
+            $success = "Rapport ajouté avec succès.";
         } catch (PDOException $e) {
-            $error = "❌ Erreur lors de l'ajout du rapport : " . $e->getMessage();
+            $error = " Erreur lors de l'ajout du rapport : " . $e->getMessage();
         }
     }
 }
