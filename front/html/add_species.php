@@ -3,7 +3,7 @@ session_start();
 require '../../lib/session.php';
 require '../../lib/pdo.php';
 
-// 🔹 Vérification des permissions
+// Vérification des permissions
 if (!hasPermission($pdo, $_SESSION['user']['role'], 'species', 'can_create')) {
     header('Location: ../login.php');
     exit;
@@ -12,7 +12,7 @@ if (!hasPermission($pdo, $_SESSION['user']['role'], 'species', 'can_create')) {
 $error = '';
 $success = '';
 
-// 🔹 Récupérer les habitats existants
+// Récupérer les habitats existants
 try {
     $query = $pdo->query("SELECT id, name FROM habitats");
     $habitats = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -20,9 +20,9 @@ try {
     $error = "Erreur lors de la récupération des habitats : " . $e->getMessage();
 }
 
-// 🔹 Vérifier si le formulaire est soumis
+// Vérifier si le formulaire est soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 🔹 Récupération des données du formulaire
+    // Récupération des données du formulaire
     $scientific_name = trim($_POST['scientific_name'] ?? '');
     $name = trim($_POST['name'] ?? '');
     $description = trim($_POST['description'] ?? '');
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (move_uploaded_file($_FILES['main_image']['tmp_name'], $uploadFile)) {
                     $mainImagePath = '/uploads/species/' . $filename;
                 } else {
-                    $error = "❌ Erreur lors du téléchargement de l'image principale.";
+                    $error = "Erreur lors du téléchargement de l'image principale.";
                 }
             }
             // Vérification de l'existence de l'espèce
