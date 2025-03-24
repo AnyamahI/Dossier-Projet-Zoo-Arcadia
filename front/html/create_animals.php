@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
                 $imagePath = '/uploads/animals/' . $fileName;
             } else {
-                $error = "❌ Erreur lors du téléchargement de l'image.";
+                $error = "Erreur lors du téléchargement de l'image.";
             }
         }
 
@@ -71,9 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':image' => $imagePath // Ajout du chemin de l'image
                 ]);
 
-                $success = "✅ L’animal a bien été ajouté avec son image !";
+                $success = "L’animal a bien été ajouté avec son image !";
             } catch (PDOException $e) {
-                $error = "❌ Erreur lors de l'ajout : " . $e->getMessage();
+                $error = "Erreur lors de l'ajout : " . $e->getMessage();
             }
         }
     }
