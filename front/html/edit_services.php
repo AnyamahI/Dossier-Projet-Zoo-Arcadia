@@ -37,10 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'] ?? '';
     $description = $_POST['description'] ?? '';
 
-    // ✅ On garde l'ancienne image si aucune nouvelle image n'est envoyée
+    // On garde l'ancienne image si aucune nouvelle image n'est envoyée
     $imagePath = $service['image'];
 
-    // 📌 Vérifier et traiter l'upload de l'image
+    // Vérifier et traiter l'upload de l'image
     if (!empty($_FILES['image']['name'])) {
         $uploadDir = '../../uploads/services/';
         $filename = time() . '_' . basename($_FILES['image']['name']);
@@ -57,14 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = "❌ Seuls les fichiers JPG, PNG et GIF sont autorisés.";
         } else {
             if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
-                $imagePath = $uploadFile; // ✅ Met à jour le chemin de l'image
+                $imagePath = $uploadFile; // Met à jour le chemin de l'image
             } else {
-                $error = "❌ Erreur lors du téléchargement de l'image.";
+                $error = " Erreur lors du téléchargement de l'image.";
             }
         }
     }
 
-    // ✅ Mise à jour des données dans la base
+    //  Mise à jour des données dans la base
     if (empty($error)) {
         try {
             $query = $pdo->prepare("UPDATE services SET name = :name, description = :description, image = :image WHERE id = :id");
@@ -75,11 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':id' => $id
             ]);
 
-            echo '<div class="alert alert-success">✅ Service mis à jour avec succès !</div>';
+            echo '<div class="alert alert-success">Service mis à jour avec succès !</div>';
             echo '<script>setTimeout(function(){ window.location.href = "manage_services.php"; }, 2000);</script>';
             exit;
         } catch (PDOException $e) {
-            $error = "❌ Erreur lors de la mise à jour : " . $e->getMessage();
+            $error = " Erreur lors de la mise à jour : " . $e->getMessage();
         }
     }
 }
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
     $name = $_POST['name'] ?? '';
     $description = $_POST['description'] ?? '';
-    $imagePath = $service['image']; // Conserver l'ancienne image si aucune nouvelle image n'est uploadée
+    $imagePath = $service['image'];
 
     if (empty($name) || empty($description)) {
         $error = 'Tous les champs sont obligatoires.';
