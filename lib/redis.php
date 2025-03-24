@@ -1,6 +1,6 @@
 <?php
 $redisUrl = getenv('REDIS_URL') ?: getenv('REDIS');
-$redis = null; // Assure qu'il est bien défini avant d'essayer de l'utiliser
+$redis = null; 
 
 if ($redisUrl) {
     $parsedUrl = parse_url($redisUrl);
@@ -13,7 +13,7 @@ if ($redisUrl) {
             $redis->connect(
                 $parsedUrl['host'],
                 $parsedUrl['port'],
-                2.5, // Timeout
+                2.5,
                 NULL,
                 0,
                 0,
@@ -30,14 +30,14 @@ if ($redisUrl) {
 
         // Vérifier la connexion
         if ($redis->ping()) {
-            error_log("✅ Redis connecté avec succès");
+            error_log("Redis connecté avec succès");
         }
     } catch (Exception $e) {
-        error_log("❌ Erreur de connexion à Redis : " . $e->getMessage());
-        $redis = null; // Assure que Redis est bien null en cas d'erreur
+        error_log("Erreur de connexion à Redis : " . $e->getMessage());
+        $redis = null; 
     }
 } else {
-    error_log("❌ REDIS_URL non trouvée dans les variables d’environnement !");
+    error_log("REDIS_URL non trouvée dans les variables d’environnement !");
     $redis = null;
 }
 ?>
