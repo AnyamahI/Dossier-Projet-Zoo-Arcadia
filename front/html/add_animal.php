@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_page'])) {
             }
         }
 
-        // ✅ Mise à jour des informations de l'animal
+        // Mise à jour des informations de l'animal
         if (empty($error)) {
             try {
                 $query = $pdo->prepare("
