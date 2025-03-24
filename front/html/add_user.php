@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
                 $query->bindParam(':name', $name);
                 $query->execute();
 
-                // ✅ Envoi de l'email avec PHPMailer
+                // Envoi de l'email avec PHPMailer
                 $mail = new PHPMailer(true);
                 try {
                     $mail->isSMTP();
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
                     // Nouveau contenu de l'email
                     $mail->Body = "
                         <div style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; border-radius: 10px;'>
-                            <h2 style='color: #2a9d8f;'>Bienvenue sur Arcadia Zoo 🎉</h2>
+                            <h2 style='color: #2a9d8f;'>Bienvenue sur Arcadia Zoo</h2>
                             <p>Bonjour,<strong>$name</strong>,</p>
                             <p>Nous avons le plaisir de vous informer que votre compte sur <strong>Arcadia Zoo</strong> a été créé avec succès.</p>
                             <p><strong>Votre adresse email de connexion :</strong> <br> <strong>$email</strong></p>
