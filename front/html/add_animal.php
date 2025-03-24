@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Vérifier si tous les champs sont remplis
     if (empty($name) || empty($species) || empty($habitat_id)) {
-        $error = "❌ Tous les champs obligatoires doivent être remplis.";
+        $error = "Tous les champs obligatoires doivent être remplis.";
     } else {
         try {
             // Vérifier si l'espèce existe déjà
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
                     $imagePath = '/uploads/animals/' . $filename;
                 } else {
-                    $error = "❌ Erreur lors du téléchargement de l'image.";
+                    $error = "Erreur lors du téléchargement de l'image.";
                 }
             }
 
@@ -100,19 +100,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $content .= "require __DIR__ . '/../templates/animal_template.php';\n";
                 file_put_contents($file_name, $content);
 
-                $success = "✅ L'animal <strong>$name</strong> a bien été ajouté avec succès !";
+                $success = "L'animal <strong>$name</strong> a bien été ajouté avec succès !";
                 header("Location: add_animal.php?animal_id=" . $lastId);
                 exit;
             }
         } catch (PDOException $e) {
-            $error = "❌ Erreur lors de l'ajout : " . $e->getMessage();
+            $error = "Erreur lors de l'ajout : " . $e->getMessage();
         }
     }
 }
 
-// ✅ Vérification si le formulaire de création de la page de l'animal a été soumis
+// Vérification si le formulaire de création de la page de l'animal a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_page'])) {
-    // ✅ Nettoyage et récupération des données du formulaire
+    // Nettoyage et récupération des données du formulaire
     $animal_id = $_POST['animal_id'] ?? '';
     $IUCN_status = trim($_POST['IUCN_status'] ?? '');
     $class_bio = trim($_POST['class_bio'] ?? '');
@@ -127,11 +127,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_page'])) {
     $distribution = trim($_POST['distribution'] ?? '');
     $description = trim($_POST['description'] ?? '');
 
-    // ✅ Vérification si tous les champs obligatoires sont remplis
+    // Vérification si tous les champs obligatoires sont remplis
     if (empty($animal_id) || empty($IUCN_status) || empty($class_bio) || empty($order_bio) || empty($family)) {
-        $error = "❌ Tous les champs obligatoires doivent être remplis.";
+        $error = "Tous les champs obligatoires doivent être remplis.";
     } else {
-        // ✅ Gestion sécurisée de l'upload des fichiers
+        // Gestion sécurisée de l'upload des fichiers
         $uploads = [];
         $uploadDir = '../../uploads/animals/';
 
@@ -153,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_page'])) {
                     $uploads[$field] = '/uploads/animals/' . $fileName;
                 } else {
                     $uploads[$field] = NULL; // Si l'upload échoue, on met NULL
-                    $error = "❌ Erreur lors de l'upload du fichier : " . $_FILES[$field]['name'];
+                    $error = "Erreur lors de l'upload du fichier : " . $_FILES[$field]['name'];
                 }
             } else {
                 $uploads[$field] = NULL; // Si aucun fichier n'est envoyé
@@ -186,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_page'])) {
                     WHERE id = :animal_id
                 ");
 
-                // ✅ Exécution de la requête avec les valeurs associées
+                // Exécution de la requête avec les valeurs associées
                 $query->execute([
                     ':IUCN_status' => $IUCN_status,
                     ':class_bio' => $class_bio,
@@ -209,11 +209,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_page'])) {
                     ':animal_id' => $animal_id
                 ]);
 
-                // ✅ Succès : Redirection après la mise à jour
+                // Succès : Redirection après la mise à jour
                 header("Location: /animals/" . $animal_id . ".php");
                 exit;
             } catch (PDOException $e) {
-                $error = "❌ Erreur lors de la mise à jour : " . $e->getMessage();
+                $error = "Erreur lors de la mise à jour : " . $e->getMessage();
             }
         }
     }
